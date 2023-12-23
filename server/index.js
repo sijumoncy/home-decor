@@ -1,6 +1,7 @@
 import express from "express";
+import { config } from "./config/config";
 
-const PORT = 8000
+const PORT = config.port
 const app = express()
 
 app.listen(PORT, () => {
