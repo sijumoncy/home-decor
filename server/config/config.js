@@ -1,8 +1,7 @@
-import dotenv from 'dotenv';
-import path from 'path';
-import Joi from 'joi';
+const dotenv = require('dotenv')
+const Joi = require('joi')
 
-dotenv.config({ path: path.join(__dirname, '../../.env') });
+dotenv.config()
 
 const envVarsSchema = Joi.object()
   .keys({
@@ -23,7 +22,7 @@ if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
 
-export const config = {
+const config = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   apiBaseUrl : envVars.API_URL,
@@ -37,3 +36,5 @@ export const config = {
     refreshExpirationDays: envVars.JWT_REFRESH_EXPIRATION_DAYS,
   }
 };
+
+module.exports = config

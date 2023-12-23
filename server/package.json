@@ -2,12 +2,11 @@
   "name": "home-decor-server",
   "version": "0.1.0",
   "description": "server side for the home decor",
-  "type": "module",
   "main": "index.js",
   "author": "sijumoncy",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
