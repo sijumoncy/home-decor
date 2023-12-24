@@ -17,8 +17,5 @@ router.put('/:id', authMiddleware.authenticate, authMiddleware.adminOnlyCheck, p
 // delete product
 router.delete('/:id', authMiddleware.authenticate, authMiddleware.adminOnlyCheck, productController.deleteProduct)
 
-// get product stats
-router.get('/status', authMiddleware.authenticate, authMiddleware.adminOnlyCheck, productController.getProductStatus)
-
 
 module.exports = router
