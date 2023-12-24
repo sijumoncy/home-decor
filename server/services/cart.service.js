@@ -29,9 +29,9 @@ async function updateCart(req, userId, cartBody) {
   if (!cart) {
     return false;
   }
-  Object.assign(movie, cartBody);
-  await movie.save();
-  return movie;
+  Object.assign(cart, cartBody);
+  await cart.save();
+  return cart;
 }
 
 async function deleteCart(req, userId) {
@@ -48,23 +48,19 @@ async function deleteCart(req, userId) {
 
 async function getCarts(limit, pageNum, filter) {
   try {
-    let products;
-    const { category, ...rest } = filter;
+    let cart;
     if (filter) {
-      products = await Product.find({
-        ...rest,
-        categories: { $in: [category] },
-      })
+      cart = await Cart.find(filter)
         .limit(limit || 100)
         .skip(pageNum)
         .exec();
     } else {
-      products = await Product.find()
+      cart = await Cart.find()
         .limit(limit || 100)
         .skip(pageNum)
         .exec();
     }
-    return products;
+    return cart;
   } catch (err) {
     throw new Error(err);
   }

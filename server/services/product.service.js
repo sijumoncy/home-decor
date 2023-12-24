@@ -44,8 +44,8 @@ async function getproduct(id) {
 async function getproducts(limit, pageNum, filter) {
   try {
     let products;
-    const { category, ...rest } = filter;
     if (filter) {
+      const { category, ...rest } = filter;
       products = await Product.find({
         ...rest,
         categories: { $in: [category] },
