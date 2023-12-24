@@ -32,7 +32,43 @@ async function deleteUser(req, res) {
   }
 }
 
+async function getUser(req,res) {
+  try{
+    const user =  await userService.getUser(req.body.id)
+    !user && res.status(httpStatus.NOT_FOUND).json({ message: "user not found", statuCode: 404});
+    const {password, ...resUser} = user._doc
+    res.status(httpStatus.OK).json({ user: resUser});
+  }catch(err){
+    console.error("get user error : ", err);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: "error", error: err });
+  }
+}
+
+async function getUsers(req,res) {
+  try{
+    const pageNum = (req.query.limit || 100) * (req.query.page || 0);
+    const users =  await userService.getUsers(pageNum, req.query.limit)
+    res.status(httpStatus.OK).json(users);
+  }catch(err) {
+    console.error("get users error : ", err);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: "error", error: err });
+  }
+}
+
+async function getUserStatus() {
+  try{
+    const status =  await userService.getUserStatus()
+    res.status(httpStatus.OK).json(status);
+  }catch(err) {
+    console.error("get user status error : ", err);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: "error", error: err });
+  }
+}
+
 module.exports = {
   updateUser,
-  deleteUser
+  deleteUser,
+  getUser,
+  getUsers,
+  getUserStatus
 }
