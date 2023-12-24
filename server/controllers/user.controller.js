@@ -34,7 +34,7 @@ async function deleteUser(req, res) {
 
 async function getUser(req,res) {
   try{
-    const user =  await userService.getUser(req.body.id)
+    const user =  await userService.getUser(req.params.id)
     !user && res.status(httpStatus.NOT_FOUND).json({ message: "user not found", statuCode: 404});
     const {password, ...resUser} = user._doc
     res.status(httpStatus.OK).json({ user: resUser});
