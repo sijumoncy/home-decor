@@ -17,8 +17,8 @@ function Navbar() {
             width={30}
             height={40}
           />
+          <NavMenu />
         </div>
-        <NavMenu />
         <div className="icons">
           <CiSearch style={{ strokeWidth: "2" }} className="icon" />
           <FaRegUser className="icon" />

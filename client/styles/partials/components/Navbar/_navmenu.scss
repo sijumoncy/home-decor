@@ -1,12 +1,46 @@
 .nav__menu {
-    @include flex-center-horiz;
-    gap: 5px;
-    padding:0 10px;
+    gap: 15px;
     color: var(--text-disabled);
-    display: none;
+
+    position: absolute;
+    top: 50px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 100%;
+    padding: 10px;
+    height: calc(100vh - 50px);
+    transition: all .5s cubic-bezier(.8,.22,.38,.79);
+    transform: translateX(200vw);
+    z-index: 9;
+    background-color: #f6f6f6;
+
+    &.open{
+        transform: translateX(0);
+    }
+
+    .mob-header {
+        width: 100%;
+        display: flex;
+        align-items: end;
+        flex-direction: column;
+        padding: 10px 0;
+        .line {
+            margin-top: 3px;
+            width: 90%;
+            height: 1px;
+            background-color: rgba($color: #000000, $alpha: .25);
+        }
+
+        @include tablet {
+            display: none;
+        }
+    }
 
     @include tablet {
         display: flex;
+        padding-left: 0 0 0 20px;
     }
 
     a {
@@ -17,5 +51,10 @@
             color: var(--text-color);
             font-weight: 500;
         }
+    }
+
+    a.active{
+        color: var(--text-color);
+        font-weight: 500;
     }
 }
