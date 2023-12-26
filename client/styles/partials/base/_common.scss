@@ -1,1 +1,12 @@
 // common reusable classes
+@mixin font-size($size) {
+    // $size : light, regular, medium, semibold, bold
+    
+}
+
+// font weights
+@each $name, $weight in ("light": 300, "normal":400, "medium":500, "semibold": 600, "bold": 700){
+    .font-#{$name} {
+        font-weight: $weight;
+    }
+}
