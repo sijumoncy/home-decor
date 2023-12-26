@@ -1,0 +1,45 @@
+.card__container {
+  @include flex-center;
+  position: relative;
+
+  .image__container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .card-title  {
+    font-size: small;
+    position: absolute;
+    left: 10px;
+    bottom: 15px;
+    z-index: 5;
+    color: #fff;
+
+    @include tabletL {
+        font-size: 16px;
+    }
+
+    &::after {
+        content: '';
+        width: 100%;
+        height: 1px;
+        background-color: #fff;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        cursor: pointer;
+    }
+
+    &::before {
+        content: '';
+        width: 150%;
+        height: 30px;
+        background: linear-gradient(90deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,0.552) 50%, rgba(255,255,255,0) 100%);
+        position: absolute;
+        bottom: 2;
+        left: 0;
+        z-index: -1;
+    }
+  }
+}

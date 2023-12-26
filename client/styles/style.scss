@@ -8,8 +8,10 @@
 
 // Components
 @import "./partials/components/Navbar/index";
+@import "./partials/components/Featured/featurecard";
 @import "./partials/components/footer";
 
 // Pages
 @import "./partials/pages/main";
 @import "./partials/pages/hero";
+@import "./partials/pages/featured";
