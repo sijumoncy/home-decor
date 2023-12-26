@@ -3,11 +3,13 @@
 @import "./partials/base/mixins";
 @import "./partials/base/reset";
 @import "./partials/base/common";
+@import "./partials/base/breakpoints";
 
 
 // Components
-@import "./partials/components/header";
+@import "./partials/components/Navbar/index";
 @import "./partials/components/footer";
 
 // Pages
+@import "./partials/pages/main";
 @import "./partials/pages/hero";

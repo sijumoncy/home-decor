@@ -1,0 +1,21 @@
+.nav__menu {
+    @include flex-center-horiz;
+    gap: 5px;
+    padding:0 10px;
+    color: var(--text-disabled);
+    display: none;
+
+    @include tablet {
+        display: flex;
+    }
+
+    a {
+        font-size: small;
+        cursor: pointer;
+        &:hover {
+            scale: 105%;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+    }
+}
