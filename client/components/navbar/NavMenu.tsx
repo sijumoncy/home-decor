@@ -6,13 +6,18 @@ import { menuLinks } from "@/constants/navMenu";
 import useAppContext from "@/context/appContext";
 
 function NavMenu() {
-  const { currentMenu, mobNavOpen, setCurrentMenu } = useAppContext();
+  const { currentMenu, mobNavOpen, setCurrentMenu, setMobNavOpen } = useAppContext();
 
   useEffect(() => {
     if (!currentMenu) {
       setCurrentMenu(menuLinks[0].name);
     }
   }, []);
+
+  const handleClickMenuItem = (linkName:string) => {
+    setCurrentMenu(linkName)
+    setMobNavOpen(false)
+  }
 
   return (
     <div className={`nav__menu ${mobNavOpen && "open"}`}>
@@ -25,7 +30,7 @@ function NavMenu() {
           className={`${currentMenu === link.name && "active"}`}
           key={link.id}
           href={link.link}
-          onClick={() => setCurrentMenu(link.name)}
+          onClick={() => handleClickMenuItem(link.name)}
         >
           {link.name}
         </Link>
