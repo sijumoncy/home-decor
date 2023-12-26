@@ -1,14 +1,38 @@
+"use client"
+
 import MobNavIcon from "@/components/navbar/MobNavIcon";
-import MobNavMenu from "@/components/navbar/MobNavMenu";
 import NavMenu from "@/components/navbar/NavMenu";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaRegUser, FaOpencart } from "react-icons/fa";
 
+
+
 function Navbar() {
+
+  const [sticky, setSticky] = useState(false)
+
+  const handleScroll = (event:Event) => {
+    const currentScollY = event.currentTarget?.scrollY;
+    if(currentScollY > 50) {
+      setSticky(true)
+    } else{
+      setSticky(false)
+    }
+  }
+  
+
+  useEffect(() =>{
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  },[])
+
   return (
-    <nav className="nav__container">
+    <nav className={`nav__container ${sticky && 'sticky'}`}>
       <div className="wrapper">
         <div className="logo">
           <Image
