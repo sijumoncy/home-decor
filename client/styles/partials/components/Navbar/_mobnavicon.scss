@@ -2,6 +2,7 @@
     cursor: pointer;
     transition: scale .5s;
     display: flex;
+    font-size: larger;
 
     &:hover {
         scale: 110%;
@@ -11,5 +12,9 @@
     .icon {
         display: flex;
 
+    }
+
+    @include tablet {
+        display: none;
     }
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.scss'
-import Navbar from './Navbar'
 
 export const metadata: Metadata = {
   title: 'Home Decor App',
@@ -15,7 +14,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="">
-        <Navbar/>
         {children}
       </body>
     </html>

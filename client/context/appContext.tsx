@@ -16,9 +16,15 @@ export default useAppContext;
 
 const AppContextProvider = ({ children }: AppProviderProps) => {
   const [currentMenu, setCurrentMenu] = useState('');
+  const [mobNavOpen, setMobNavOpen] = useState(false);
   
   return (
-    <AppContext.Provider value={{ currentMenu, setCurrentMenu }}>
+    <AppContext.Provider value={{
+       currentMenu,
+       mobNavOpen,
+       setMobNavOpen,
+       setCurrentMenu 
+       }}>
       {children}
     </AppContext.Provider>
   );
