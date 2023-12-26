@@ -1,0 +1,15 @@
+.mobile-nav {
+    cursor: pointer;
+    transition: scale .5s;
+    display: flex;
+
+    &:hover {
+        scale: 110%;
+        color: var(--text-color);
+    }
+
+    .icon {
+        display: flex;
+
+    }
+}

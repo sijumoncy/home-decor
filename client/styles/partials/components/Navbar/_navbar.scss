@@ -5,16 +5,19 @@
   @include flex-center-vert;
 
   .wrapper {
-    padding: 0 5px;
-    @include flex-center-vert;
+    width: 100%;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     .logo {
       @include flex-center;
     }
 
     .icons {
-      display: flex;
-      gap: 5px;
+      @include flex-center-vert;
+      gap: 18px;
       font-size: large;
       color: #4a4a4a;
 

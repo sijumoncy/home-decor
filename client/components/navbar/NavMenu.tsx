@@ -1,10 +1,6 @@
 import React from 'react'
 import Link from "next/link";
-
-const menuLinks = [
-    { id: 1, name: "Home", link: "#" },
-    { id: 2, name: "Shop", link: "#" },
-  ];
+import { menuLinks } from '@/constants/navMenu';
 
 function NavMenu() {
   return (

@@ -1,9 +1,10 @@
-import MobNavMenu from "@/components/MobNavMenu";
-import NavMenu from "@/components/NavMenu";
+import MobNavIcon from "@/components/navbar/MobNavIcon";
+import MobNavMenu from "@/components/navbar/MobNavMenu";
+import NavMenu from "@/components/navbar/NavMenu";
 import Image from "next/image";
 import React from "react";
-import {CiSearch} from 'react-icons/ci'
-import {FaRegUser, FaOpencart} from 'react-icons/fa'
+import { CiSearch } from "react-icons/ci";
+import { FaRegUser, FaOpencart } from "react-icons/fa";
 
 function Navbar() {
   return (
@@ -19,11 +20,11 @@ function Navbar() {
         </div>
         <NavMenu />
         <div className="icons">
-          <CiSearch style={{ strokeWidth: "2"}}  className="icon"/>
-          <FaRegUser  className="icon"/>
-          <FaOpencart  className="icon"/>
+          <CiSearch style={{ strokeWidth: "2" }} className="icon" />
+          <FaRegUser className="icon" />
+          <FaOpencart className="icon" />
+          <MobNavIcon />
         </div>
-        <MobNavMenu/>
       </div>
     </nav>
   );
