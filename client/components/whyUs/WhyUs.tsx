@@ -21,6 +21,7 @@ function WhyUs() {
           </div>
         ))}
       </div>
+
       <div className="features_section">
         <p className="title">{whyUsOffers.title}</p>
         <div className="feature-grid">
@@ -41,6 +42,17 @@ function WhyUs() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="full-preview">
+        <Image
+          src="/Assets/home.webp"
+          alt="preview-work"
+          fill={true}
+          className="preview-img"
+          style={{ objectFit: "cover" }}
+          loading="lazy"
+        />
       </div>
     </section>
   );
