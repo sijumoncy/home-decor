@@ -35,6 +35,16 @@
         letter-spacing: 0.5px;
       }
     }
+
+    @include laptopL {
+      .left {
+        font-size: 11px;
+      }
+
+      .right {
+        font-size: 11px;
+      }
+    }
   }
 
   .content {
@@ -59,6 +69,10 @@
       @include tabletS {
         height: 50vw;
       }
+    }
+
+    @include laptopL {
+        gap: 20px;
     }
 
     .content-text {
@@ -87,7 +101,23 @@
         max-width: 230px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+
+        .para {
+            padding-top: calc(50vh - 300px);
+        }
+      }
+
+      @include laptopL {
+        max-width: 280px;
+        .title {
+          p {
+            font-size: 24px;
+          }
+        }
+
+        .para {
+            font-size: 15px;
+        }
       }
     }
   }

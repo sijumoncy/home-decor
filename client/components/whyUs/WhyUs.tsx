@@ -5,8 +5,8 @@ import { whyUsContents } from "@/constants/whyus";
 function WhyUs() {
   return (
     <section className="whyus__container">
-      {whyUsContents.map((content) => (
-        <div key={content.id} className="card">
+      {whyUsContents.map((content, index) => (
+        <div key={content.id} className="card" style={{top: `calc(var(--navbar-offset) * ${(index +1 )})`}}>
           <WhyUsCard
             {...content}
             imageUrl={`/Assets/whyus${content.id}.webp`}
