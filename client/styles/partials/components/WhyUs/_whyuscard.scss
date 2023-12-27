@@ -1,0 +1,94 @@
+.whyuscard___container {
+  width: 100%;
+  height: 100%;
+
+  .header {
+    font-size: 9px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 10px 0;
+
+    text-transform: uppercase;
+    .left {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .right {
+      text-align: center;
+      font-size: 8px;
+    }
+
+    @include tabletS {
+      flex-direction: row;
+      justify-content: space-between;
+
+      .left {
+        gap: 15px;
+        letter-spacing: 0.5px;
+      }
+
+      .right {
+        font-size: 9px;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+
+  .content {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    padding-bottom: 10px;
+
+    @include tabletS {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 20px;
+      gap: 15px;
+    }
+
+    .image-box-left {
+      margin-top: 10px;
+      position: relative;
+      width: 100%;
+      height: calc(100vw - 24px);
+
+      @include tabletS {
+        height: 50vw;
+      }
+    }
+
+    .content-text {
+      padding: 0 10px;
+
+      .title {
+        margin: 10px 0;
+        p {
+          font-size: 16px;
+          max-width: 300px;
+          font-weight: 500;
+        }
+      }
+
+      .para {
+        font-size: 12px;
+        max-width: 350px;
+
+        p {
+          margin-top: 10px;
+        }
+      }
+
+      @include tabletS {
+        padding: 0;
+        max-width: 230px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+  }
+}

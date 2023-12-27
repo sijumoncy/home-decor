@@ -1,6 +1,6 @@
 $mobileM: 375;
 $mobileL: 425;
-$tabletM: 596;
+$tabletS: 596;
 $tablet: 768;
 $tabletL: 900;
 $laptop: 1024;
@@ -21,8 +21,8 @@ $desktopL: 2560;
   }
 }
 
-@mixin tabletM {
-  @media only screen and (min-width: ($tabletM * 1px)) {
+@mixin tabletS {
+  @media only screen and (min-width: ($tabletS * 1px)) {
     @content;
   }
 }
