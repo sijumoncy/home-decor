@@ -3,6 +3,8 @@ import EmailSubscribe from "@/components/utils/EmailSubscribe";
 import { contact, footerLinkList } from "@/constants/footer";
 import Image from "next/image";
 import React from "react";
+import {CiFacebook, CiInstagram, CiYoutube} from 'react-icons/ci'
+import {FaXTwitter, FaPinterest} from 'react-icons/fa6'
 
 function Footer() {
   return (
@@ -30,6 +32,13 @@ function Footer() {
               Be the first to hear about exclusive offers, blogs and products
             </p>
             <EmailSubscribe />
+            <div className="cmp-social">
+                <CiFacebook className="social-icon"/>
+                <CiInstagram className="social-icon"/>
+                <FaXTwitter className="social-icon"/>
+                <FaPinterest className="social-icon"/>
+                <CiYoutube className="social-icon"/>
+            </div>
           </div>
 
           <div className="contact">

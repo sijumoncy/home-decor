@@ -55,6 +55,22 @@
         }
       }
 
+      .cmp-social {
+        margin-top: 10px;
+        display: flex;
+        gap: 20px;
+        cursor: pointer;
+
+        .social-icon{
+            font-size: 20px;
+            transition: scale .5s ease;
+            &:hover {
+                color: #000;
+                scale: 110%;
+            }
+        }
+      }
+
       @include tablet {
         grid-column-start: 3;
         grid-column-end: 3;
