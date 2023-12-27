@@ -10,6 +10,7 @@ function EmailSubscribe() {
         className="email-input"
         id="email-input"
         name="email"
+        type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value) }
         placeholder="email address"

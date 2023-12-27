@@ -42,5 +42,36 @@
             font-size: 12px;
         }
     }
+
+    .contact {
+        margin: 10px 0;
+        font-size: 12px;
+
+        .title {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .cmp-address {
+            margin: 5px 0;
+        }
+
+        .cmp-phone {
+            span {
+                &:not(:last-child)::after {
+                    content: "|";
+                    font-weight: 500;
+                    padding: 0 5px;
+                }
+            }
+        }
+
+    }
+  }
+
+  .copyright{
+    font-size: 12px;
+    text-align: center;
+    padding: 10px 0;
   }
 }
