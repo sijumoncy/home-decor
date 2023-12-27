@@ -15,25 +15,40 @@
   height: 100vh;
   gap: 50px;
 
+  @include tablet {
+    gap: 70px;
+  }
+
   .title {
     font-size: 24px;
     max-width: 480px;
+    color: #bcb6a5;
+    text-align: center;
+    font-weight: 500;
+
+    @include tablet {
+        font-size: 28px;
+        max-width: 580px;
+    }
+
+    @include laptopL {
+        font-size: 40px;
+        max-width: 980px;
+    }
   }
 
   .feature-grid {
     @include flex-center-column;
     gap: 20px;
 
+
     .feature-box {
       @include flex-center-column;
+
       .feature-img {
         position: relative;
         width: 60px;
         height: 60px;
-
-        .icon {
-            color : #bcb6a5;
-        }
       }
 
       .feature-content {
@@ -47,8 +62,24 @@
         .para {
           font-size: 12px;
           color: rgba($color: #fff, $alpha: 0.7);
+          max-width: 250px;
+        }
+
+        @include laptopL {
+            .head {
+                font-size: 20px;
+            }
+            .para {
+                font-size: 16px;
+                max-width: 320px;
+            }
         }
       }
+    }
+
+    @include tablet {
+        @include flex-center;
+        flex-direction: row;
     }
   }
 }
