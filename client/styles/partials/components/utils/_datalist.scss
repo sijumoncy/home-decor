@@ -1,0 +1,18 @@
+.data-list {
+  .title {
+    font-weight: 500;
+  }
+
+  .list {
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+
+    a {
+      &:hover {
+        cursor: pointer;
+        color: #000000;
+      }
+    }
+  }
+}

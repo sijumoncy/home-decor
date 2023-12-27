@@ -1,0 +1,24 @@
+.email__container {
+    padding-top: 5px;
+    .email-input {
+        height: 30px;
+        outline: none;
+        border: 1px solid gray;
+        border-radius: 20px 0 0 20px;
+        padding: 0 10px;
+    }
+
+    .sub-btn {
+        height: 30px;
+        background-color: gray;
+        color: #fff;
+        padding: 0 10px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgb(87, 85, 85);
+        }
+    }
+}
