@@ -2,7 +2,7 @@
   max-width: 1720px;
   width: 100vw;
   margin: 0 auto;
-  min-height: 50vh;
+  min-height: 30vh;
   margin-top: 20px;
 
   .site-name {
@@ -16,12 +16,12 @@
     }
 
     span {
-        color: var(--text-color);
-        font-size: 24px;
-        font-weight: 600;
-        position: absolute;
-        bottom: -7px;
-        left: 60px;
+      color: var(--text-color);
+      font-size: 24px;
+      font-weight: 600;
+      position: absolute;
+      bottom: -7px;
+      left: 60px;
     }
   }
 
@@ -32,46 +32,77 @@
     grid-row: auto;
     row-gap: 10px;
 
+    @include tablet {
+      grid-template-columns: 1fr 1fr 2.5fr 2fr;
+      margin-top: 30px;
+    }
+
+    @include laptop {
+      grid-template-columns: 1fr 1fr 2fr 1fr;
+      padding: 0 20px;
+    }
+
     .news-letter {
-        grid-column-start: 1;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      .title {
+        font-weight: 500;
+      }
+      .para {
+        font-size: 12px;
+        @include laptopL {
+          font-size: 14px;
+        }
+      }
+
+      @include tablet {
+        grid-column-start: 3;
         grid-column-end: 3;
-        .title {
-            font-weight: 500;
-        }
-        .para {
-            font-size: 12px;
-        }
+      }
     }
 
     .contact {
-        margin: 10px 0;
-        font-size: 12px;
+      margin: 10px 0;
+      font-size: 12px;
+      @include laptopL {
+        font-size: 14px;
+      }
 
-        .title {
-            font-size: 16px;
+      .title {
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .cmp-address {
+        margin: 5px 0;
+      }
+
+      .cmp-email {
+        cursor: pointer;
+        &:hover {
+          color: #000;
+        }
+      }
+
+      .cmp-phone {
+        span {
+          &:not(:last-child)::after {
+            content: "|";
             font-weight: 500;
+            padding: 0 5px;
+          }
         }
-
-        .cmp-address {
-            margin: 5px 0;
-        }
-
-        .cmp-phone {
-            span {
-                &:not(:last-child)::after {
-                    content: "|";
-                    font-weight: 500;
-                    padding: 0 5px;
-                }
-            }
-        }
-
+      }
     }
   }
 
-  .copyright{
+  .copyright {
     font-size: 12px;
     text-align: center;
     padding: 10px 0;
+
+    @include laptopL {
+      font-size: 14px;
+    }
   }
 }

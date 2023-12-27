@@ -16,8 +16,12 @@ function Footer() {
         </div>
 
         <div className="about-grid">
-          <DataList title="Company" linkList={footerLinkList.company} />
-          <DataList title="Help" linkList={footerLinkList.Help} />
+          <div className="company">
+            <DataList title="Company" linkList={footerLinkList.company} />
+          </div>
+          <div className="help">
+            <DataList title="Help" linkList={footerLinkList.Help} />
+          </div>
 
           <div className="news-letter">
             <p className="title">Newsletter</p>
@@ -43,19 +47,17 @@ function Footer() {
               ))}
             </div>
 
-            <a href={`mailto:${contact.email}`}>{ contact.email}</a>
+            <a href={`mailto:${contact.email}`} className="cmp-email">{contact.email}</a>
 
             <div className="cmp-phone">
-                {contact.phone.map((ph, index) => (
-                    <span key={index}>{ph}</span>
-                ))}
+              {contact.phone.map((ph, index) => (
+                <span key={index}>{ph}</span>
+              ))}
             </div>
-
           </div>
-          
         </div>
         <div className="copyright">
-            © 2023 - Home Decor Ltd. Developed By Siju
+          © 2023 - Home Decor Ltd. Developed By Siju
         </div>
       </div>
     </footer>
