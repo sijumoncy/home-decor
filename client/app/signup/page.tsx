@@ -1,6 +1,7 @@
 "use client";
 
 import ErrorField from "@/components/utils/ErrorField";
+import LoaderLine from "@/components/utils/Loader/LoaderLine";
 import { validateWithRegex } from "@/utils/validation";
 import Link from "next/link";
 import React, { FormEvent, useState } from "react";
@@ -19,7 +20,7 @@ function SignUp() {
     password: { error: false, message: "", explanation: "" },
   });
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as {
@@ -45,15 +46,14 @@ function SignUp() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setLoading(true)
-    if(Object.values(formDataError).every((field) => !field.error)){
+    if (Object.values(formDataError).every((field) => !field.error)) {
+      setLoading(true);
       console.log("form event target : ", formData);
-      setTimeout(()=>{
-        setLoading(false)
-      },2000)
-    }else {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    } else {
       console.log("validation failed");
-      
     }
   };
 
@@ -125,7 +125,11 @@ function SignUp() {
           explanation={formDataError.password.explanation}
         />
 
-        <button className="sign-btn">Sign Up</button>
+        {loading ? (
+          <LoaderLine />
+        ) : (
+          <button className="sign-btn">Sign Up</button>
+        )}
       </form>
 
       <div className="existing-acc">
