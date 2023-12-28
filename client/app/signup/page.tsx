@@ -1,11 +1,66 @@
+"use client";
+
+import ErrorField from "@/components/utils/ErrorField";
+import { validateWithRegex } from "@/utils/validation";
 import Link from "next/link";
-import React from "react";
+import React, { FormEvent, useState } from "react";
 
 function SignUp() {
+  const [formData, setFormData] = useState({
+    username: "",
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [formDataError, setFormDataError] = useState({
+    username: { error: false, message: "", explanation: "" },
+    name: { error: false, message: "", explanation: "" },
+    email: { error: false, message: "", explanation: "" },
+    password: { error: false, message: "", explanation: "" },
+  });
+
+  const [loading, setLoading] = useState(false)
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target as {
+      name: "name" | "email" | "password" | "username";
+      value: string;
+    };
+
+    const validate: { error: boolean; message: string; explanation: string } =
+      await validateWithRegex(name, value);
+
+    if (value) {
+      setFormDataError((prevData) => ({
+        ...prevData,
+        [name]: validate,
+      }));
+    }
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setLoading(true)
+    if(Object.values(formDataError).every((field) => !field.error)){
+      console.log("form event target : ", formData);
+      setTimeout(()=>{
+        setLoading(false)
+      },2000)
+    }else {
+      console.log("validation failed");
+      
+    }
+  };
+
   return (
     <div className="signup__container">
       <h4>Sign Up</h4>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           className="username"
           name="username"
@@ -13,6 +68,13 @@ function SignUp() {
           type="text"
           placeholder="username"
           required
+          value={formData.username}
+          onChange={handleChange}
+        />
+
+        <ErrorField
+          errorText={formDataError.username.message}
+          explanation={formDataError.username.explanation}
         />
 
         <input
@@ -22,6 +84,13 @@ function SignUp() {
           type="text"
           placeholder="name"
           required
+          value={formData.name}
+          onChange={handleChange}
+        />
+
+        <ErrorField
+          errorText={formDataError.name.message}
+          explanation={formDataError.name.explanation}
         />
 
         <input
@@ -31,6 +100,13 @@ function SignUp() {
           type="email"
           placeholder="email"
           required
+          value={formData.email}
+          onChange={handleChange}
+        />
+
+        <ErrorField
+          errorText={formDataError.email.message}
+          explanation={formDataError.email.explanation}
         />
 
         <input
@@ -40,17 +116,23 @@ function SignUp() {
           type="password"
           placeholder="password"
           required
+          value={formData.password}
+          onChange={handleChange}
+        />
+
+        <ErrorField
+          errorText={formDataError.password.message}
+          explanation={formDataError.password.explanation}
         />
 
         <button className="sign-btn">Sign Up</button>
       </form>
 
-        <div className="existing-acc">
-            <span>Aleady have account? </span>
-            &nbsp;&nbsp;
-            <Link href="/login">Login Now</Link>
-        </div>
-
+      <div className="existing-acc">
+        <span>Aleady have account? </span>
+        &nbsp;&nbsp;
+        <Link href="/login">Login Now</Link>
+      </div>
     </div>
   );
 }
