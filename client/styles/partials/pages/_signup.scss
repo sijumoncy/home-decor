@@ -1,0 +1,52 @@
+.signup__container {
+
+    min-height: 60vh;
+    @include flex-center-column;
+
+    h4 {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    form {
+        @include flex-center-column;
+
+        input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid gray;
+        }
+
+        .sign-btn {
+            border: 1px solid gray;
+            outline: none;
+            padding: 10px 30px;
+            border-radius: 5px;
+            background-color: gray;
+            color: #fff;
+            transition: background-color .5s ease;
+
+            &:hover{
+                cursor: pointer;
+                background-color: rgb(83, 82, 82);
+            }
+        }
+    }
+
+    .existing-acc {
+        margin-top: 10px;
+        font-size: 14px;
+        @include flex-center;
+
+        a {
+            color: rgb(11, 63, 122);
+            &:hover{
+                cursor: pointer;
+                color: rgb(5, 34, 66);
+                font-weight: 500;
+            }
+        }
+    }
+}
