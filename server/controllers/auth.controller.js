@@ -1,5 +1,5 @@
 const CryptoJs = require('crypto-js')
-const config = require('../../config/config')
+const config = require('../config/config')
 const authService = require('../services/auth.service')
 const tokenService = require('../services/token.service')
 

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const httpStatus = require('http-status')
 const config = require('../config/config')
-const User = require('../../models/User.Model')
+const User = require('../models/User.Model')
 
 const checkTokenInRequest = async (req, res, next) => {
   try {

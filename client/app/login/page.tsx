@@ -101,3 +101,10 @@ function Login() {
 }
 
 export default Login;
+
+
+// TODO : 
+
+// - connect signup api
+// - implement login api call and resposne for session
+// - add middleware and protected logic

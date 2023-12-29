@@ -37,7 +37,7 @@ const config = {
     refreshExpirationDays: envVars.JWT_REFRESH_EXPIRATION_DAYS,
   },
   crypto:{
-    secret : CRYPTO_PWD_SECRET
+    secret : envVars.CRYPTO_PWD_SECRET
   }
 };
 
