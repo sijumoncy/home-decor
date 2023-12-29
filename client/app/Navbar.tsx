@@ -8,6 +8,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaRegUser, FaOpencart } from "react-icons/fa";
+import { signOut, useSession } from "next-auth/react";
 
 function Navbar() {
   const [sticky, setSticky] = useState(false);
@@ -22,6 +23,10 @@ function Navbar() {
   };
 
   const { currentMenu, setCurrentMenu } = useAppContext();
+  const { data: session } = useSession();
+
+  console.log({session});
+  
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -45,17 +50,25 @@ function Navbar() {
         </div>
         <div className="icons">
           <CiSearch style={{ strokeWidth: "2" }} className="icon" />
-          <Link
-            href="/login"
-            className={`icon-link ${
-              currentMenu === "login/register" && "active"
-            }`}
-            onClick={() => setCurrentMenu("login/register")}
-          >
-            <FaRegUser className="icon" />
-          </Link>
+          {!session && (
+            <Link
+              href="/login"
+              className={`icon-link ${
+                currentMenu === "login/register" && "active"
+              }`}
+              onClick={() => setCurrentMenu("login/register")}
+            >
+              <FaRegUser className="icon" />
+            </Link>
+          )}
           <FaOpencart className="icon" />
           <MobNavIcon />
+
+          {session && (
+            <div className="logout-section">
+              <button onClick={() => signOut()}>Logout</button>
+            </div>
+          )}
         </div>
       </div>
     </nav>

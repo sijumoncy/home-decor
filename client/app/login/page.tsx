@@ -1,7 +1,10 @@
 "use client";
 import LoaderLine from "@/components/utils/Loader/LoaderLine";
 import Link from "next/link";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import ErrorField from "@/components/utils/ErrorField";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -10,6 +13,10 @@ function Login() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [errorText, setErrorText] = useState("");
+
+  const session = useSession();
+  const router = useRouter();
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as {
@@ -27,10 +34,26 @@ function Login() {
     e.preventDefault();
     setLoading(true);
     console.log("form event target : ", formData);
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
+    const response = await signIn("credentials", {
+      redirect: false,
+      username: formData.username,
+      password: formData.password,
+    });
+
+    setLoading(false)
+    if (!response || response?.error) {
+      setErrorText("Login failed. Invalid Credentials");
+      if (response?.url) router.replace("/");
+    } else {
+      setErrorText("")
+    }
   };
+
+  useEffect(() => {
+    if(session.status === "authenticated") {
+      router.replace('/')
+    }
+  },[session, router])
 
   return (
     <div className="login__container">
@@ -56,6 +79,8 @@ function Login() {
           value={formData.password}
           onChange={handleChange}
         />
+
+        <ErrorField errorText={errorText} />
 
         {loading ? (
           <LoaderLine text="" primaryColor="#808080" secondaryColor="#adaaaa" />

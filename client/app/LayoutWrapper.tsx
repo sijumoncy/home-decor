@@ -8,9 +8,9 @@ import Footer from "./Footer";
 function LayoutWrapper({ children }: { children: ReactNode }) {
   return (
     <AppContextProvider>
-      <Navbar />
-      {children}
-      <Footer/>
+        <Navbar />
+        {children}
+        <Footer />
     </AppContextProvider>
   );
 }
