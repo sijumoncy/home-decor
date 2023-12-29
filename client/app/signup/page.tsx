@@ -21,7 +21,19 @@ function SignUp() {
     password: { error: false, message: "", explanation: "" },
   });
 
+  const [registerError, setRegisterError] = useState("");
+
   const [loading, setLoading] = useState(false);
+
+  const handleResetAll = () => {
+    setFormData({ username: "", name: "", email: "", password: "" });
+    setFormDataError({
+      username: { error: false, message: "", explanation: "" },
+      name: { error: false, message: "", explanation: "" },
+      email: { error: false, message: "", explanation: "" },
+      password: { error: false, message: "", explanation: "" },
+    });
+  };
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as {
@@ -46,26 +58,44 @@ function SignUp() {
   };
 
   const registerUser = async () => {
-    const payload = {
-      username: formData.username,
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
+    try {
+      const payload = {
+        username: formData.username,
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      };
+      const resp = await axios.post(
+        "http://127.0.0.1:8000/api/v1/auth/register",
+        payload
+      );
+      return resp;
+    } catch (Err: any) {
+      throw new Error(Err);
     }
-    const resp = await axios.post('http://127.0.0.1:8000/api/v1/auth/register', payload)
-    const data = resp?.data
-    return data
-  }
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (Object.values(formDataError).every((field) => !field.error)) {
       setLoading(true);
       console.log("form event target : ", formData);
-      const response = await registerUser()
-      console.log({response});
-      setLoading(false)
-      
+
+      try {
+        const response = await registerUser();
+        setLoading(false);
+        const { data } = response;
+        if (data?.success) {
+          console.log({ data });
+          handleResetAll();
+        } else {
+          setRegisterError(data.message);
+        }
+      } catch (err) {
+        setLoading(false);
+        setRegisterError("Internal Error. Registration not completed");
+        console.log("Registration failed. Internal server error : ", err);
+      }
     } else {
       console.log("validation failed");
     }
@@ -139,8 +169,10 @@ function SignUp() {
           explanation={formDataError.password.explanation}
         />
 
+        <ErrorField errorText={registerError} />
+
         {loading ? (
-          <LoaderLine text="" primaryColor="#808080" secondaryColor="#adaaaa"/>
+          <LoaderLine text="" primaryColor="#808080" secondaryColor="#adaaaa" />
         ) : (
           <button className="sign-btn">Sign Up</button>
         )}
