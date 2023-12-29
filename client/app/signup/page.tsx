@@ -51,7 +51,7 @@ function SignUp() {
       console.log("form event target : ", formData);
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 5000);
     } else {
       console.log("validation failed");
     }
@@ -126,7 +126,7 @@ function SignUp() {
         />
 
         {loading ? (
-          <LoaderLine />
+          <LoaderLine text="" primaryColor="#808080" secondaryColor="#adaaaa"/>
         ) : (
           <button className="sign-btn">Sign Up</button>
         )}

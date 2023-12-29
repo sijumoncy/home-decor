@@ -3,7 +3,7 @@ import React from "react";
 function LoaderLine({
   primaryColor = "#1f1f1f",
   secondaryColor = "#a0a59e",
-  text,
+  text='loading',
 }: {
   primaryColor?: string;
   secondaryColor?:string;
@@ -17,7 +17,7 @@ function LoaderLine({
 
   return (
     <div className="loader" style={styles}>
-      <span className="loader-text">loading</span>
+      <span className="loader-text">{text}</span>
       <span className="load"></span>
     </div>
   );
