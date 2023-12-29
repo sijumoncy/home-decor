@@ -3,6 +3,7 @@
 import ErrorField from "@/components/utils/ErrorField";
 import LoaderLine from "@/components/utils/Loader/LoaderLine";
 import { validateWithRegex } from "@/utils/validation";
+import axios from "axios";
 import Link from "next/link";
 import React, { FormEvent, useState } from "react";
 
@@ -44,14 +45,27 @@ function SignUp() {
     }));
   };
 
+  const registerUser = async () => {
+    const payload = {
+      username: formData.username,
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    }
+    const resp = await axios.post('http://127.0.0.1:8000/api/v1/auth/register', payload)
+    const data = resp?.data
+    return data
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (Object.values(formDataError).every((field) => !field.error)) {
       setLoading(true);
       console.log("form event target : ", formData);
-      setTimeout(() => {
-        setLoading(false);
-      }, 5000);
+      const response = await registerUser()
+      console.log({response});
+      setLoading(false)
+      
     } else {
       console.log("validation failed");
     }
