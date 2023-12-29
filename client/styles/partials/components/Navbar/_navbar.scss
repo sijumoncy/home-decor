@@ -32,6 +32,13 @@
       font-size: large;
       color: #4a4a4a;
 
+      .icon-link {
+        @include flex-center-vert;
+        &.active{
+          color:#000;
+        }
+      }
+
       .icon {
         cursor: pointer;
         &:hover{
