@@ -9,12 +9,12 @@ export const authOptions: AuthOptions = {
       id: "credentials",
       name: 'Credentials',
       credentials: {
-        username: { label: "username", type: "text" },
+        email: { label: "email", type: "email" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
         if (typeof credentials !== "undefined") {
-          const response = await authenticate(credentials.username, credentials.password)
+          const response = await authenticate(credentials.email, credentials.password)
           return response
         } else {
           return null

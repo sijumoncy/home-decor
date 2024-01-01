@@ -14,9 +14,9 @@ async function userRegister(userBody) {
   }
 }
 
-async function userLogin(username) {
+async function userLogin(email) {
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     return user;
   } catch (err) {
     throw new Error(err);

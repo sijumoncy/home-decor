@@ -1,5 +1,4 @@
 const httpStatus = require('http-status')
-const CryptoJs = require('crypto-js')
 const userService = require('../services/user.service')
 
 async function updateUser(req, res) {
@@ -7,10 +6,7 @@ async function updateUser(req, res) {
     const userBody = {
       name : req.body.name,
       email : req.body.email,
-      password: CryptoJs.AES.encrypt(
-        req.body.password,
-        config.crypto.secret
-      ).toString()
+      password: req.body.password,
     }
     const updatedUser =  await userService.updateUser(req.params.id , userBody)
     const {password, ...resUser} = updatedUser._doc

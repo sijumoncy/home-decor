@@ -8,7 +8,7 @@ import ErrorField from "@/components/utils/ErrorField";
 
 function Login() {
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -20,7 +20,7 @@ function Login() {
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as {
-      name: "password" | "username";
+      name: "password" | "email";
       value: string;
     };
 
@@ -36,7 +36,7 @@ function Login() {
     console.log("form event target : ", formData);
     const response = await signIn("credentials", {
       redirect: false,
-      username: formData.username,
+      email: formData.email,
       password: formData.password,
     });
 
@@ -60,13 +60,13 @@ function Login() {
       <h4>Login</h4>
       <form onSubmit={handleSubmit}>
         <input
-          className="username"
-          name="username"
-          id="username"
-          type="text"
-          placeholder="username"
+          className="email"
+          name="email"
+          id="email"
+          type="email"
+          placeholder="email"
           required
-          value={formData.username}
+          value={formData.email}
           onChange={handleChange}
         />
         <input
