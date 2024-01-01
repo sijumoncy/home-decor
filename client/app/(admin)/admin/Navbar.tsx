@@ -47,19 +47,7 @@ function Navbar() {
           <NavMenu />
         </div>
         <div className="icons">
-          <CiSearch style={{ strokeWidth: "2" }} className="icon" />
-          {!session && (
-            <Link
-              href="/login"
-              className={`icon-link ${
-                currentMenu === "login/register" && "active"
-              }`}
-              onClick={() => setCurrentMenu("login/register")}
-            >
-              <FaRegUser className="icon" />
-            </Link>
-          )}
-          <FaOpencart className="icon" />
+          {/* <CiSearch style={{ strokeWidth: "2" }} className="icon" /> */}
           <MobNavIcon />
 
           {session && (

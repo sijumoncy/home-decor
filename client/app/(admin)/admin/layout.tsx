@@ -17,8 +17,8 @@ export default async function RootLayout({
         <AuthProvider session={session}>
           <AdminContextProvider>
             <Navbar />
+            {children}
           </AdminContextProvider>
-          {children}
         </AuthProvider>
       </body>
     </html>
