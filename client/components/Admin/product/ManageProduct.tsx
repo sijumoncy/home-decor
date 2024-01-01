@@ -4,6 +4,7 @@ import Modal from "@/components/modal/Modal";
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
+import CreateProductModal from "./CreateProductModal";
 
 function ManageProduct() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -48,7 +49,7 @@ function ManageProduct() {
         onAction={handleOnModalAction}
         actionBtnName="Create"
       >
-        <p>This is the content of the modal.</p>
+        <CreateProductModal/>
       </Modal>
     </section>
   );
