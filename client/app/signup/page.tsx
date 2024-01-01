@@ -79,14 +79,12 @@ function SignUp() {
     e.preventDefault();
     if (Object.values(formDataError).every((field) => !field.error)) {
       setLoading(true);
-      console.log("form event target : ", formData);
 
       try {
         const response = await registerUser();
         setLoading(false);
         const { data } = response;
         if (data?.success) {
-          console.log({ data });
           handleResetAll();
         } else {
           setRegisterError(data.message);

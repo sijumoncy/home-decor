@@ -38,7 +38,6 @@ async function userLogin(req, res) {
     if (user) {
       const { password, ...resUser } = user._doc;
       const isMatch = await authUtils.matchPassword(req.body.password, password)
-      console.log("is amtch :", isMatch);
       if (isMatch) {
         const accessToken = await tokenService.generateToken(resUser);
         res

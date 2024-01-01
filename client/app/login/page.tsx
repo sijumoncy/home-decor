@@ -50,9 +50,7 @@ function Login() {
 
   useEffect(() => {
     if(session.status === "authenticated") {
-      console.log({session});
-      
-      router.replace('/')
+      router.push('/')
     }
   },[session, router])
 
