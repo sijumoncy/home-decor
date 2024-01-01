@@ -24,8 +24,6 @@ function Navbar() {
 
   const { currentMenu, setCurrentMenu } = useAppContext();
   const { data: session } = useSession();
-
-  console.log({session});
   
 
   useEffect(() => {

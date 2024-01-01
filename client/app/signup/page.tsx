@@ -4,8 +4,10 @@ import ErrorField from "@/components/utils/ErrorField";
 import LoaderLine from "@/components/utils/Loader/LoaderLine";
 import { validateWithRegex } from "@/utils/validation";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { FormEvent, useEffect, useState } from "react";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -24,6 +26,9 @@ function SignUp() {
   const [registerError, setRegisterError] = useState("");
 
   const [loading, setLoading] = useState(false);
+
+  const session = useSession();
+  const router = useRouter();
 
   const handleResetAll = () => {
     setFormData({ username: "", name: "", email: "", password: "" });
@@ -86,6 +91,7 @@ function SignUp() {
         const { data } = response;
         if (data?.success) {
           handleResetAll();
+          router.push('/login')
         } else {
           setRegisterError(data.message);
         }
@@ -98,6 +104,12 @@ function SignUp() {
       console.log("validation failed");
     }
   };
+
+  useEffect(() => {
+    if(session.status === "authenticated") {
+      router.push('/')
+    }
+  },[session, router])
 
   return (
     <div className="signup__container">
