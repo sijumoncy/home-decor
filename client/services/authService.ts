@@ -8,8 +8,8 @@ export const authenticate = async (email: string, password: string) => {
       password,
     });
     if (resp.status === 200) {
-      const { user, accessToken } = resp.data;
-      return { ...user, ...accessToken };
+      const { user, accessToken } = resp.data;      
+      return { ...user, accessToken };
     }
     return null;
   } catch (err) {

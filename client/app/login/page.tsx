@@ -33,7 +33,6 @@ function Login() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    console.log("form event target : ", formData);
     const response = await signIn("credentials", {
       redirect: false,
       email: formData.email,
@@ -51,6 +50,8 @@ function Login() {
 
   useEffect(() => {
     if(session.status === "authenticated") {
+      console.log({session});
+      
       router.replace('/')
     }
   },[session, router])
