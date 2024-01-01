@@ -50,7 +50,13 @@ function Login() {
 
   useEffect(() => {
     if(session.status === "authenticated") {
-      router.push('/')
+      console.log({session});
+      const {user} = session.data
+      if(user?.isAdmin) {
+        router.push('/admin')
+      } else {
+        router.push('/')
+      }
     }
   },[session, router])
 
