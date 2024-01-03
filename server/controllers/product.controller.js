@@ -3,6 +3,7 @@ const productService = require("../services/product.service");
 
 async function addProduct(req, res) {
   try {
+    req.body.img = req.file.filename
     const createdProduct = await productService.addProduct(req.body);
     return res
       .status(httpStatus.CREATED)

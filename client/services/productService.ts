@@ -2,13 +2,16 @@ import { ICreateProductData } from "@/interface/manageproduct";
 import axios from "axios";
 
 async function createProductService(
-  formData: ICreateProductData,
+  formData: FormData,
   token: string
 ) {
   try {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
+
+    console.log({formData});
+    
 
     const resp = await axios.post(
       "http://127.0.0.1:8000/api/v1/product",

@@ -82,12 +82,15 @@ function CreateProductModal({
   };
 
   console.log({session});
+  
 
   const handleSubmit = async () => {
     console.log({ formData });
     if(formData.title && formData.description && formData.price) {
       setError('')
-      const response = await createProductService(formData, (session?.user?.accessToken || ''))
+      const productFormData = new FormData()
+      Object.entries(formData).map(([key, value]) => productFormData.append(key, value))
+      const response = await createProductService(productFormData, (session?.user?.accessToken || ''))
       if(response.error) {
         // add toast
         console.log("error create product : ", response.message);
