@@ -12,6 +12,11 @@
         font-size: 13px;
       }
 
+      .labels-group {
+        display: flex;
+        gap: 1px;
+      }
+
       input {
         padding: 5px;
         outline: none;

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 
 interface ModalProps {
   title: string;
@@ -7,10 +7,19 @@ interface ModalProps {
   children: ReactNode;
   onAction?: () => void;
   actionBtnName?: string;
+  loading: boolean;
 }
 
-const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, children, onAction, actionBtnName = "process" }) => {
-  const modalClassName = isOpen ? 'modal-container open' : 'modal-container';
+const Modal: React.FC<ModalProps> = ({
+  title,
+  isOpen,
+  onClose,
+  children,
+  onAction,
+  actionBtnName = "process",
+  loading
+}) => {
+  const modalClassName = isOpen ? "modal-container open" : "modal-container";
 
   return (
     <div className={modalClassName}>
@@ -27,8 +36,8 @@ const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, children, onActio
             Cancel
           </button>
           {onAction && (
-            <button className="save-button" onClick={onAction}>
-              {actionBtnName}
+            <button className="save-button" onClick={onAction} disabled={loading}>
+              {loading ?  "processing..." :  actionBtnName}
             </button>
           )}
         </div>

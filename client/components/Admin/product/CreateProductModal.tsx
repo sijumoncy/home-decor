@@ -1,20 +1,30 @@
 "use client";
 
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import ErrorField from "@/components/utils/ErrorField";
+import Mandidatory from "@/components/utils/Mandidatory";
+import { ICreateProductData } from "@/interface/manageproduct";
+import { createProductService } from "@/services/productService";
+import { useSession } from "next-auth/react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-interface IProductData {
-  title: string,
-  description: string,
-  categories: string[],
-  size: string,
-  colors: string[],
-  price: number,
-  rating: number,
-  image : File | null 
+interface IcreateProductModalProps {
+  modalActionStatus: "done" | "nostarted" | "inprogress" | "error";
+  setModalActionStatus: React.Dispatch<
+    React.SetStateAction<"done" | "nostarted" | "inprogress" | "error">
+  >;
 }
 
-function CreateProductModal() {
-  const [formData, setFormData] = useState<IProductData>({
+function CreateProductModal({
+  modalActionStatus,
+  setModalActionStatus,
+}: IcreateProductModalProps) {
+  const [formData, setFormData] = useState<ICreateProductData>({
     title: "",
     description: "",
     categories: [],
@@ -22,8 +32,11 @@ function CreateProductModal() {
     colors: [],
     price: 0,
     rating: 0,
-    image : null
+    image: null,
   });
+
+  const [error, setError] = useState('');
+  const {data:session} = useSession()
 
   const handleChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -36,14 +49,22 @@ function CreateProductModal() {
         | "size"
         | "colors"
         | "price"
-        | "rating"
+        | "rating";
       value: string;
     };
 
-    let currentValue: string | string[] = value;
+    let currentValue: string | string[] | number = value;
 
     if (name === "categories" || name === "colors") {
       currentValue = value.split(",");
+    }
+
+    if (name === "rating") {
+      if (parseInt(value) > 5) {
+        currentValue = 5;
+      } else if (parseInt(value) < 0) {
+        currentValue = 0;
+      }
     }
 
     setFormData((prevData) => ({
@@ -52,24 +73,50 @@ function CreateProductModal() {
     }));
   };
 
-  const handleFileChange = async (e : ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     setFormData((prevData) => ({
       ...prevData,
-      image : file
-    }))
-  }
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    console.log({ formData });
+      image: file,
+    }));
   };
+
+  console.log({session});
+
+  const handleSubmit = async () => {
+    console.log({ formData });
+    if(formData.title && formData.description && formData.price) {
+      setError('')
+      const response = await createProductService(formData, (session?.user?.accessToken || ''))
+      if(response.error) {
+        // add toast
+        console.log("error create product : ", response.message);
+        setModalActionStatus("error");
+      } else {
+        // toast success
+        console.log("SUCCESS create product : ", response);
+        setModalActionStatus("done");
+      }
+    } else {
+      setError('Fill all madidatory fields')
+      setModalActionStatus("error");
+    }
+  };
+
+  useEffect(() => {
+    if (modalActionStatus === "inprogress") {
+      handleSubmit();
+    }
+  }, [modalActionStatus]);
 
   return (
     <div className="form-wrapper">
-      <form onSubmit={handleSubmit} className="form">
+      <form className="form">
         <div className="input-group">
-          <label htmlFor="title">Title</label>
+          <div className="labels-group">
+            <label htmlFor="title">Title</label>
+            <Mandidatory />
+          </div>
           <input
             className="title"
             name="title"
@@ -82,7 +129,10 @@ function CreateProductModal() {
           />
         </div>
         <div className="input-group">
-          <label htmlFor="description">Description</label>
+          <div className="labels-group">
+            <label htmlFor="description">Description</label>
+            <Mandidatory />
+          </div>
           <textarea
             className="description"
             name="description"
@@ -130,7 +180,10 @@ function CreateProductModal() {
           />
         </div>
         <div className="input-group">
-          <label htmlFor="price">Price</label>
+          <div className="labels-group">
+            <label htmlFor="price">Price</label>
+            <Mandidatory />
+          </div>
           <input
             className="price"
             name="price"
@@ -148,6 +201,8 @@ function CreateProductModal() {
             name="rating"
             id="rating"
             type="number"
+            min={0}
+            max={5}
             placeholder="rating"
             value={formData.rating}
             onChange={handleChange}
@@ -164,7 +219,7 @@ function CreateProductModal() {
             onChange={handleFileChange}
           />
         </div>
-        <button type="submit">Test Submit</button>
+        <ErrorField errorText={error}/>
       </form>
     </div>
   );

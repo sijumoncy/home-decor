@@ -1,13 +1,17 @@
 "use client";
 
 import Modal from "@/components/modal/Modal";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
 import CreateProductModal from "./CreateProductModal";
 
 function ManageProduct() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [modalActionStatus, setModalActionStatus] = useState<
+    "done" | "nostarted" | "inprogress" | "error"
+  >("nostarted");
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -15,13 +19,23 @@ function ManageProduct() {
 
   const handleCloseModal = () => {
     setModalOpen(false);
+    setLoading(false)
+    setModalActionStatus("nostarted")
   };
 
   const handleOnModalAction = () => {
-    handleCloseModal();
-    console.log("action modal clicked");
-    
+    setLoading(true);
+    setModalActionStatus("inprogress");
   };
+
+  useEffect(() => {
+    if (modalActionStatus === "done") {
+      handleCloseModal()
+    } else if (modalActionStatus === "error") {
+      setLoading(false)
+      setModalActionStatus("nostarted")
+    }
+  }, [modalActionStatus]);
 
   return (
     <section className="product__container">
@@ -48,8 +62,12 @@ function ManageProduct() {
         onClose={handleCloseModal}
         onAction={handleOnModalAction}
         actionBtnName="Create"
+        loading={loading}
       >
-        <CreateProductModal/>
+        <CreateProductModal
+          modalActionStatus={modalActionStatus}
+          setModalActionStatus={setModalActionStatus}
+        />
       </Modal>
     </section>
   );

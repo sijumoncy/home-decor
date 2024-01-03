@@ -1,13 +1,10 @@
 const Product = require("../models/Product.Model");
 
 async function addProduct(productBody) {
-  try {
+
     const newProduct = new Product(productBody);
     const savedProduct = await newProduct.save();
     return savedProduct;
-  } catch (err) {
-    throw new Error(err);
-  }
 }
 
 async function updateProduct(id, productBody) {
