@@ -7,6 +7,7 @@ const authRoute = require('./routes/v1/auth')
 const cartRoute = require('./routes/v1/cart')
 const orderRoute = require('./routes/v1/order')
 const productRoute = require('./routes/v1/product')
+const fileRoute = require('./routes/v1/file')
 const config = require('./config/config')
 
 const app = express();
@@ -29,6 +30,7 @@ app.use(`${config.apiBaseUrl}/auth`, authRoute)
 app.use(`${config.apiBaseUrl}/product`, productRoute)
 app.use(`${config.apiBaseUrl}/cart`, cartRoute)
 app.use(`${config.apiBaseUrl}/order`, orderRoute)
+app.use(`${config.apiBaseUrl}/file`, fileRoute)
 
 
 module.exports = app;
