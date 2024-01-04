@@ -1,14 +1,15 @@
 "use client";
 
-import { ICreateProductData } from "@/interface/manageproduct";
+import { ICreateProductData, IProductResponse } from "@/interface/manageproduct";
 import { getProductsService } from "@/services/productService";
 import { useSession } from "next-auth/react";
 import React, { useCallback, useEffect, useState } from "react";
+import ProductCard from "./ProductCard";
 
 function ListProducts() {
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(12);
-  const [products, setProducts] = useState<ICreateProductData | []>([]);
+  const [products, setProducts] = useState<IProductResponse[] | []>([]);
   const [loading, setLoading] = useState(false);
 
   const { data: session } = useSession();
@@ -33,9 +34,16 @@ function ListProducts() {
   }, [getProducts]);
 
   return (
-    <div>
+    <div className="list__product">
       <div>
-        {loading ? <>Loading..</> : <div>{JSON.stringify(products)}</div>}
+        {loading ? <>Loading..</> 
+        : (
+        <div className="product__container">
+          {products.map((product) => (
+            <ProductCard key={product._id} product={product}/>
+          ))}
+        </div>
+        )}
       </div>
     </div>
   );

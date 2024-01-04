@@ -8,3 +8,8 @@ export interface ICreateProductData {
     rating: number,
     image : File | null 
   }
+
+export interface IProductResponse extends ICreateProductData {
+  _id : string
+  img : string
+}
