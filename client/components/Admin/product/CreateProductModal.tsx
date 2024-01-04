@@ -80,8 +80,6 @@ function CreateProductModal({
       image: file,
     }));
   };
-
-  console.log({session});
   
 
   const handleSubmit = async () => {

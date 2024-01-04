@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
 import CreateProductModal from "./CreateProductModal";
+import ListProducts from "./ListProducts";
 
 function ManageProduct() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -54,7 +55,9 @@ function ManageProduct() {
         </button>
       </div>
 
-      <div className="content-section"></div>
+      <div className="content-section">
+        <ListProducts/>
+      </div>
 
       <Modal
         title="Create New Product"

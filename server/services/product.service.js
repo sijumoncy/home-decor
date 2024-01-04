@@ -38,7 +38,7 @@ async function getproduct(id) {
   }
 }
 
-async function getproducts(limit, pageNum, filter) {
+async function getproducts(pageNum, limit, filter) {
   try {
     let products;
     if (filter) {
