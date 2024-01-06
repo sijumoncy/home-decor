@@ -4,10 +4,23 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         gap: 10px;
+        place-items: center;
+
+        @include tabletS {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        @include tabletL {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include laptopL {
+            grid-template-columns: repeat(4, 2fr);
+        }
     }
 
     .product__paging {
-        
+        margin: 10px 0;
     }
 
 }
