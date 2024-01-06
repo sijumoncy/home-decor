@@ -4,13 +4,28 @@ import {
   ICreateProductData,
   IProductResponse,
 } from "@/interface/manageproduct";
-import { deleteProductService, getProductsService } from "@/services/productService";
+import {
+  deleteProductService,
+  getProductsService,
+} from "@/services/productService";
 import { useSession } from "next-auth/react";
 import React, { useCallback, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Pagination from "@/components/utils/Pagination";
 
-function ListProducts() {
+interface IListProductProps {
+  modalActionStatus: "done" | "nostarted" | "inprogress" | "error";
+  setModalActionStatus: React.Dispatch<
+    React.SetStateAction<"done" | "nostarted" | "inprogress" | "error">
+  >;
+  handleEditProduct : (product: IProductResponse) => void
+}
+
+function ListProducts({
+  modalActionStatus,
+  setModalActionStatus,
+  handleEditProduct
+}: IListProductProps) {
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(12);
   const [products, setProducts] = useState<IProductResponse[] | []>([]);
@@ -35,21 +50,24 @@ function ListProducts() {
     }
   }, [page, limit, session]);
 
-
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    if (modalActionStatus === "nostarted") {
+      getProducts();
+    }
+  }, [getProducts, modalActionStatus]);
 
   const deleteProduct = async (product: IProductResponse) => {
-    const {data, error} = await deleteProductService(product._id, session?.user?.accessToken || "")
-    if(!error) {
-      console.log("deleted : ", {data});
-      await getProducts()
+    const { data, error } = await deleteProductService(
+      product._id,
+      session?.user?.accessToken || ""
+    );
+    if (!error) {
+      console.log("deleted : ", { data });
+      await getProducts();
     } else {
-      console.log("error delete product : ", {error});
-      
+      console.log("error delete product : ", { error });
     }
-  }
+  };
 
   return (
     <div className="list__product">
@@ -63,6 +81,7 @@ function ListProducts() {
                 key={product._id}
                 product={product}
                 deleteProduct={deleteProduct}
+                handleEditProduct = {handleEditProduct}
               />
             ))}
           </div>

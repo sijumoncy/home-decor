@@ -2,7 +2,10 @@
 
 import ErrorField from "@/components/utils/ErrorField";
 import Mandidatory from "@/components/utils/Mandidatory";
-import { ICreateProductData } from "@/interface/manageproduct";
+import {
+  ICreateProductData,
+  IProductResponse,
+} from "@/interface/manageproduct";
 import { createProductService } from "@/services/productService";
 import { useSession } from "next-auth/react";
 import React, {
@@ -13,17 +16,21 @@ import React, {
   useState,
 } from "react";
 
-interface IcreateProductModalProps {
+interface IProductModalContentProps {
   modalActionStatus: "done" | "nostarted" | "inprogress" | "error";
   setModalActionStatus: React.Dispatch<
     React.SetStateAction<"done" | "nostarted" | "inprogress" | "error">
   >;
+  modalAction: "create" | "edit";
+  modalUpdateContent: IProductResponse | null;
 }
 
-function CreateProductModal({
+function ProductModalContent({
   modalActionStatus,
   setModalActionStatus,
-}: IcreateProductModalProps) {
+  modalAction,
+  modalUpdateContent,
+}: IProductModalContentProps) {
   const [formData, setFormData] = useState<ICreateProductData>({
     title: "",
     description: "",
@@ -35,8 +42,8 @@ function CreateProductModal({
     image: null,
   });
 
-  const [error, setError] = useState('');
-  const {data:session} = useSession()
+  const [error, setError] = useState("");
+  const { data: session } = useSession();
 
   const handleChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -80,16 +87,20 @@ function CreateProductModal({
       image: file,
     }));
   };
-  
 
   const handleSubmit = async () => {
     console.log({ formData });
-    if(formData.title && formData.description && formData.price) {
-      setError('')
-      const productFormData = new FormData()
-      Object.entries(formData).map(([key, value]) => productFormData.append(key, value))
-      const response = await createProductService(productFormData, (session?.user?.accessToken || ''))
-      if(response.error) {
+    if (formData.title && formData.description && formData.price) {
+      setError("");
+      const productFormData = new FormData();
+      Object.entries(formData).map(([key, value]) =>
+        productFormData.append(key, value)
+      );
+      const response = await createProductService(
+        productFormData,
+        session?.user?.accessToken || ""
+      );
+      if (response.error) {
         // add toast
         console.log("error create product : ", response.message);
         setModalActionStatus("error");
@@ -99,7 +110,7 @@ function CreateProductModal({
         setModalActionStatus("done");
       }
     } else {
-      setError('Fill all madidatory fields')
+      setError("Fill all madidatory fields");
       setModalActionStatus("error");
     }
   };
@@ -109,6 +120,15 @@ function CreateProductModal({
       handleSubmit();
     }
   }, [modalActionStatus]);
+
+  useEffect(() => {
+    if (modalAction === "edit" && modalUpdateContent) {
+      setFormData((prev) => ({
+        ...prev,
+        ...modalUpdateContent,
+      }));
+    }
+  }, [modalAction, modalUpdateContent]);
 
   return (
     <div className="form-wrapper">
@@ -220,10 +240,10 @@ function CreateProductModal({
             onChange={handleFileChange}
           />
         </div>
-        <ErrorField errorText={error}/>
+        <ErrorField errorText={error} />
       </form>
     </div>
   );
 }
 
-export default CreateProductModal;
+export default ProductModalContent;

@@ -9,9 +9,11 @@ import { MdDelete } from "react-icons/md";
 function ProductCard({
   product,
   deleteProduct, 
+  handleEditProduct
 }: {
   product: IProductResponse;
   deleteProduct : (product:IProductResponse) => void
+  handleEditProduct : (product: IProductResponse) => void
 }) {
   const handleDeleteProduct = async (product:IProductResponse) => {
     if (confirm("Do you want to delete the product")) {
@@ -49,7 +51,7 @@ function ProductCard({
       </div>
 
       <div className="btn-section">
-        <button className="btn btn-edit">
+        <button className="btn btn-edit" onClick={() => handleEditProduct(product)}>
           <FaEdit className="" />
         </button>
         <button className="btn btn-delete" onClick={() => handleDeleteProduct(product)}>
