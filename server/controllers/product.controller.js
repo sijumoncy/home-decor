@@ -69,12 +69,12 @@ async function getProducts(req, res) {
       filter.category = req.query.category;
     }
     const pageNum = (req.query.limit || 100) * (req.query.page || 0);
-    const products = await productService.getproducts(
+    const {products , totalProducts} = await productService.getproducts(
       pageNum,
       req.query.limit,
       filter
     );
-    res.status(httpStatus.OK).json(products);
+    res.status(httpStatus.OK).json({products, totalProducts});
   } catch (err) {
     console.error("get product error : ", err);
     res

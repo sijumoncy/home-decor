@@ -56,7 +56,8 @@ async function getproducts(pageNum, limit, filter) {
         .skip(pageNum)
         .exec();
     }
-    return products;
+    const totalProducts = await Product.countDocuments(filter)
+    return {products, totalProducts};
   } catch (err) {
     throw new Error(err);
   }

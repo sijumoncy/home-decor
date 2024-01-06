@@ -6,7 +6,6 @@ import {FaEdit} from 'react-icons/fa'
 import {MdDelete} from 'react-icons/md'
 
 function ProductCard({ product }: { product: IProductResponse }) {
-  console.log(product);
 
   return (
     <div className="product__card">

@@ -1,0 +1,33 @@
+.page__wrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+    align-items: center;
+
+    button {
+        border: none;
+        cursor: pointer;
+    }
+
+    .page__number {
+        @include flex-center;
+        padding: 4px 7.5px;
+        transition: all .5s ease;
+        &.active {
+            background-color: rgb(16, 130, 175);
+            color: #ddd;
+            border-radius: 50%;
+        }
+
+        &:hover {
+            background-color: rgb(50, 158, 201);
+            color: #ddd
+        }
+    }
+
+    .page__key {
+        @include flex-center;
+        font-weight: 800;
+        font-size: 24px;
+    }
+}
