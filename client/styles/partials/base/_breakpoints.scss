@@ -68,3 +68,9 @@ $desktopL: 2560;
     @content;
   }
 }
+
+@mixin isTouchScreen {
+  @media (pointer: coarse) {
+    @content;
+  }
+}

@@ -40,7 +40,7 @@ async function deleteProduct(req, res) {
   try {
     const deletedProduct = await productService.deleteproduct(req.params.id);
     res
-      .status(httpStatus.CREATED)
+      .status(httpStatus.OK)
       .json({ message: "Successfully deleted product", deletedProduct });
   } catch (err) {
     console.error("delete product error : ", err);

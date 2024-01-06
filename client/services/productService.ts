@@ -7,8 +7,6 @@ async function createProductService(formData: FormData, token: string) {
       headers: { Authorization: `Bearer ${token}` },
     };
 
-    console.log({ formData });
-
     const resp = await axios.post(
       "http://127.0.0.1:8000/api/v1/product",
       formData,
@@ -41,7 +39,6 @@ async function createProductService(formData: FormData, token: string) {
 }
 
 async function getProductsService(page: number, limit: number, token: string) {
-  console.log("in get products call : ", page, limit);
   try {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
@@ -51,7 +48,6 @@ async function getProductsService(page: number, limit: number, token: string) {
       `http://127.0.0.1:8000/api/v1/product?page=${page}&limit=${limit}`,
       config
     );
-    console.log("original : ", {resp});
     
     return { data: resp.data, error: false };
 
@@ -60,4 +56,24 @@ async function getProductsService(page: number, limit: number, token: string) {
   }
 }
 
-export { createProductService, getProductsService };
+async function deleteProductService(productId:string, token:string) {
+  console.log("in product delete : ", {productId});
+  try{
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const resp = await axios.delete(
+      `http://127.0.0.1:8000/api/v1/product/${productId}`,
+      config
+    );
+    
+    return { data: resp.data, error: false };
+
+  } catch (err) {
+    return { data: err, error: true };
+  }
+}
+
+export { createProductService, getProductsService, deleteProductService };

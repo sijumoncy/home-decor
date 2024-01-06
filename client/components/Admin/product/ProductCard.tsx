@@ -1,11 +1,23 @@
 "use client";
 import { IProductResponse } from "@/interface/manageproduct";
+import { Session } from "next-auth";
 import Image from "next/image";
 import React from "react";
-import {FaEdit} from 'react-icons/fa'
-import {MdDelete} from 'react-icons/md'
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
-function ProductCard({ product }: { product: IProductResponse }) {
+function ProductCard({
+  product,
+  deleteProduct, 
+}: {
+  product: IProductResponse;
+  deleteProduct : (product:IProductResponse) => void
+}) {
+  const handleDeleteProduct = async (product:IProductResponse) => {
+    if (confirm("Do you want to delete the product")) {
+      await deleteProduct(product)
+    }
+  };
 
   return (
     <div className="product__card">
@@ -19,24 +31,29 @@ function ProductCard({ product }: { product: IProductResponse }) {
         />
       </div>
       <div className="content">
-        {Object.entries(product).map(([key, value]) => (
-          !["_id", "createdAt", "updatedAt", "__v"].includes(key) && (
-            <div key={key} className="item-row">
-              <p className="key">{key}</p>
-              <p className="value title">
-                {Array.isArray(value) ? (<>{JSON.stringify(value)}</>) : (<>{value}</>)}
-              </p>
-            </div>
-          )
-          ))}
+        {Object.entries(product).map(
+          ([key, value]) =>
+            !["_id", "createdAt", "updatedAt", "__v"].includes(key) && (
+              <div key={key} className="item-row">
+                <p className="key">{key}</p>
+                <p className="value title">
+                  {Array.isArray(value) ? (
+                    <>{JSON.stringify(value)}</>
+                  ) : (
+                    <>{value}</>
+                  )}
+                </p>
+              </div>
+            )
+        )}
       </div>
 
       <div className="btn-section">
         <button className="btn btn-edit">
-          <FaEdit className=""/>
+          <FaEdit className="" />
         </button>
-        <button className="btn btn-delete">
-          <MdDelete className=""/>
+        <button className="btn btn-delete" onClick={() => handleDeleteProduct(product)}>
+          <MdDelete className="" />
         </button>
       </div>
     </div>

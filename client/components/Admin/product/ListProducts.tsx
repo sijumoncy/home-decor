@@ -4,7 +4,7 @@ import {
   ICreateProductData,
   IProductResponse,
 } from "@/interface/manageproduct";
-import { getProductsService } from "@/services/productService";
+import { deleteProductService, getProductsService } from "@/services/productService";
 import { useSession } from "next-auth/react";
 import React, { useCallback, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
@@ -35,9 +35,21 @@ function ListProducts() {
     }
   }, [page, limit, session]);
 
+
   useEffect(() => {
     getProducts();
   }, [getProducts]);
+
+  const deleteProduct = async (product: IProductResponse) => {
+    const {data, error} = await deleteProductService(product._id, session?.user?.accessToken || "")
+    if(!error) {
+      console.log("deleted : ", {data});
+      await getProducts()
+    } else {
+      console.log("error delete product : ", {error});
+      
+    }
+  }
 
   return (
     <div className="list__product">
@@ -47,18 +59,22 @@ function ListProducts() {
         ) : (
           <div className="product__container">
             {products.map((product) => (
-              <ProductCard key={product._id} product={product} />
+              <ProductCard
+                key={product._id}
+                product={product}
+                deleteProduct={deleteProduct}
+              />
             ))}
           </div>
         )}
       </div>
 
       <div className="product__paging">
-        <Pagination 
+        <Pagination
           productsCount={productsCount}
-          limit = {limit}
-          currentPage = {page}
-          setPage = {setPage}
+          limit={limit}
+          currentPage={page}
+          setPage={setPage}
         />
       </div>
     </div>
