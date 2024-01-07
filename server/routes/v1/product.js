@@ -53,6 +53,7 @@ router.put(
   "/:id",
   authMiddleware.authenticate,
   authMiddleware.adminOnlyCheck,
+  uploadImage.single('image'),
   productController.updateProduct
 );
 

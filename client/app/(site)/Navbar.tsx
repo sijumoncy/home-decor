@@ -24,7 +24,6 @@ function Navbar() {
 
   const { currentMenu, setCurrentMenu } = useAppContext();
   const { data: session } = useSession();
-  
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -38,12 +37,14 @@ function Navbar() {
     <nav className={`nav__container ${sticky && "sticky"}`}>
       <div className="wrapper">
         <div className="logo">
-          <Image
-            src="/Assets/Logo.svg"
-            alt="HomeDecor"
-            width={30}
-            height={40}
-          />
+          <Link href="/">
+            <Image
+              src="/Assets/Logo.svg"
+              alt="HomeDecor"
+              width={30}
+              height={40}
+            />
+          </Link>
           <NavMenu />
         </div>
         <div className="icons">

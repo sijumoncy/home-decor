@@ -93,6 +93,7 @@ function ManageProduct() {
           setModalActionStatus={setModalActionStatus}
           modalAction={modalAction}
           modalUpdateContent={modalUpdateContent}
+          isModalOpen = {isModalOpen}
         />
       </Modal>
     </section>

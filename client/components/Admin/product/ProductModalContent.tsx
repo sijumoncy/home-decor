@@ -6,7 +6,10 @@ import {
   ICreateProductData,
   IProductResponse,
 } from "@/interface/manageproduct";
-import { createProductService } from "@/services/productService";
+import {
+  createProductService,
+  updateProductService,
+} from "@/services/productService";
 import { useSession } from "next-auth/react";
 import React, {
   ChangeEvent,
@@ -23,6 +26,7 @@ interface IProductModalContentProps {
   >;
   modalAction: "create" | "edit";
   modalUpdateContent: IProductResponse | null;
+  isModalOpen : boolean
 }
 
 function ProductModalContent({
@@ -30,6 +34,7 @@ function ProductModalContent({
   setModalActionStatus,
   modalAction,
   modalUpdateContent,
+  isModalOpen
 }: IProductModalContentProps) {
   const [formData, setFormData] = useState<ICreateProductData>({
     title: "",
@@ -44,6 +49,20 @@ function ProductModalContent({
 
   const [error, setError] = useState("");
   const { data: session } = useSession();
+  const [currentProductId, setCurrentProductId] = useState("");
+
+  const handleResetForm = async () => {
+    setFormData({
+      title: "",
+      description: "",
+      categories: [],
+      size: "",
+      colors: [],
+      price: 0,
+      rating: 0,
+      image: null,
+    });
+  };
 
   const handleChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -89,25 +108,49 @@ function ProductModalContent({
   };
 
   const handleSubmit = async () => {
-    console.log({ formData });
     if (formData.title && formData.description && formData.price) {
       setError("");
+      console.log({ formData });
+
       const productFormData = new FormData();
       Object.entries(formData).map(([key, value]) =>
-        productFormData.append(key, value)
+        productFormData.set(key, value)
       );
-      const response = await createProductService(
-        productFormData,
-        session?.user?.accessToken || ""
-      );
-      if (response.error) {
-        // add toast
-        console.log("error create product : ", response.message);
-        setModalActionStatus("error");
+
+      if (modalAction === "edit") {
+        // update product section
+        console.log({ productFormData });
+        const response = await updateProductService(
+          productFormData,
+          session?.user?.accessToken || "",
+          currentProductId
+        );
+        if (response.error) {
+          // add toast
+          console.log("error Update product : ", response.message);
+          setModalActionStatus("error");
+        } else {
+          // toast success
+          console.log("SUCCESS Update product : ", response);
+          setModalActionStatus("done");
+          handleResetForm()
+        }
       } else {
-        // toast success
-        console.log("SUCCESS create product : ", response);
-        setModalActionStatus("done");
+        // Create product section
+        const response = await createProductService(
+          productFormData,
+          session?.user?.accessToken || ""
+        );
+        if (response.error) {
+          // add toast
+          console.log("error create product : ", response.message);
+          setModalActionStatus("error");
+        } else {
+          // toast success
+          console.log("SUCCESS create product : ", response);
+          setModalActionStatus("done");
+          handleResetForm()
+        }
       }
     } else {
       setError("Fill all madidatory fields");
@@ -123,12 +166,16 @@ function ProductModalContent({
 
   useEffect(() => {
     if (modalAction === "edit" && modalUpdateContent) {
+      setCurrentProductId(modalUpdateContent._id);
       setFormData((prev) => ({
         ...prev,
         ...modalUpdateContent,
       }));
     }
-  }, [modalAction, modalUpdateContent]);
+    if(!isModalOpen) {
+      handleResetForm()
+    }
+  }, [modalAction, modalUpdateContent, isModalOpen]);
 
   return (
     <div className="form-wrapper">
