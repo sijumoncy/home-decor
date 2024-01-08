@@ -30,7 +30,8 @@ async function updateProduct(req, res) {
       req.file &&
       (req.file.mimetype !== "image/jpeg" &&
         req.file.mimetype !== "image/png" &&
-        req.file.mimetype !== "image/webp")
+        req.file.mimetype !== "image/webp") && 
+        req.file.mimetype !== "image/jpg"
     ) {
       res
         .status(httpStatus.NOT_ACCEPTABLE)

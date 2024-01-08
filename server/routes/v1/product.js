@@ -2,36 +2,41 @@ const router = require("express").Router();
 const authMiddleware = require("../../middlewares/authenticate");
 const productController = require("../../controllers/product.controller");
 const multer = require("multer");
-const fs = require('fs')
+const fs = require("fs");
 
-const filePath = './uploads'
+const filePath = "./uploads";
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      fs.mkdirSync(filePath, { recursive: true })
-      cb(null, filePath);
-    },
-    filename: (req, file, cb) => {
-      const ext = file.mimetype.split('/')[1];
-      cb(null, `${Date.now()}.${ext}`);
-    },
-  });
-  
-  const fileFilter = (req, file, cb) => {
-    if (file.mimetype === "image/jpeg" || file.mimetype === "image/png" || file.mimetype === "image/webp") {
-      cb(null, true);
-    } else {
-      cb(null, false);
-    }
-  };
-  
-  const uploadImage = multer({
-    storage: storage,
-    limits: {
-      fileSize: 1024 * 1024 * 10,
-    },
-    fileFilter: fileFilter,
-  });
+  destination: (req, file, cb) => {
+    fs.mkdirSync(filePath, { recursive: true });
+    cb(null, filePath);
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, `${Date.now()}.${ext}`);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/webp" ||
+    file.mimetype === "image/jpg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const uploadImage = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 10,
+  },
+  fileFilter: fileFilter,
+});
 
 // get all products : no auth
 router.get("/", productController.getProducts);
@@ -44,7 +49,7 @@ router.post(
   "/",
   authMiddleware.authenticate,
   authMiddleware.adminOnlyCheck,
-  uploadImage.single('image'),
+  uploadImage.single("image"),
   productController.addProduct
 );
 
@@ -53,7 +58,7 @@ router.put(
   "/:id",
   authMiddleware.authenticate,
   authMiddleware.adminOnlyCheck,
-  uploadImage.single('image'),
+  uploadImage.single("image"),
   productController.updateProduct
 );
 
