@@ -42,11 +42,7 @@ async function getproducts(pageNum, limit, filter) {
   try {
     let products;
     if (filter) {
-      const { category, ...rest } = filter;
-      products = await Product.find({
-        ...rest,
-        categories: { $in: [category] },
-      })
+      products = await Product.find(filter)
         .limit(limit || 100)
         .skip(pageNum)
         .exec();

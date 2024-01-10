@@ -1,0 +1,135 @@
+.productLayout__container {
+  .two-col {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include tabletL {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .two-one {
+      background-color: #b8ccdd;
+      position: relative;
+      width: 100%;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include mobileL {
+        height: 350px;
+      }
+
+      @include tabletS {
+        height: 420px;
+      }
+
+      @include tabletL {
+        height: auto;
+      }
+
+      .two-one-card {
+        position: relative;
+        width: 100%;
+        height: 250px;
+        max-width: 375px;
+        @include mobileL {
+          height: 280px;
+        }
+        @include tabletS {
+          height: 320px;
+        }
+        .head {
+          font-size: 70px;
+          color: #fdfefe;
+          font-weight: 800;
+          position: absolute;
+          top: 5%;
+          left: 50%;
+          transform: translate(-50%);
+        }
+
+        .img {
+          position: absolute;
+          top: 30%;
+          left: 50%;
+          transform: translate(-50%);
+          width: 90%;
+          max-width: 320px;
+          height: 100px;
+        }
+
+        .content {
+          position: absolute;
+          bottom: 12px;
+          left: 50%;
+          font-weight: 500;
+          transform: translate(-50%);
+          text-align: center;
+
+          .price {
+            color: #474444;
+          }
+        }
+      }
+    }
+
+    .two-two {
+      position: relative;
+      width: 100%;
+      height: 160vh;
+      display: grid;
+      grid-template-columns: 1fr;
+
+      @include tabletS {
+        grid-template-columns: 1fr 1fr;
+        height: 100vh;
+      }
+
+      @include tabletL {
+        height: 700px;
+      }
+
+      .two-cards {
+        position: relative;
+
+        &:nth-child(1) {
+          background-color: #d7e0e7;
+        }
+        &:nth-child(4) {
+            background-color: #d7e0e7;
+          }
+
+        .card-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          
+          .img {
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+
+          .content {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            font-weight: 500;
+            transform: translate(-50%);
+            text-align: center;
+
+            .price {
+              color: #474444;
+            }
+          }
+        }
+      }
+    }
+  }
+}

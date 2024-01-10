@@ -1,4 +1,5 @@
 import { ICreateProductData } from "@/interface/manageproduct";
+import { IgetProductFilter } from "@/interface/productService";
 import axios from "axios";
 
 async function createProductService(formData: FormData, token: string) {
@@ -83,16 +84,25 @@ async function updateProductService(
   }
 }
 
-async function getProductsService(page: number, limit: number, token: string) {
+async function getProductsService(
+  page: number,
+  limit: number,
+  token: string,
+  filter?: IgetProductFilter
+) {
   try {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-
-    const resp = await axios.get(
-      `http://127.0.0.1:8000/api/v1/product?page=${page}&limit=${limit}`,
-      config
-    );
+    let URL = `http://127.0.0.1:8000/api/v1/product?page=${page}&limit=${limit}`;
+    const catgStr =
+      filter?.category && filter?.category?.length > 0
+        ? filter?.category?.join(",")
+        : "";
+    if (catgStr) {
+      URL += `&category=${catgStr}`;
+    }
+    const resp = await axios.get(URL, config);
 
     return { data: resp.data, error: false };
   } catch (err: any) {
@@ -135,5 +145,5 @@ export {
   getProductsService,
   deleteProductService,
   updateProductService,
-  getCategories
+  getCategories,
 };

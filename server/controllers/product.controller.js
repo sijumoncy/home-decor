@@ -102,9 +102,12 @@ async function getProduct(req, res) {
 
 async function getProducts(req, res) {
   try {
-    const filter = null;
+    const filter = {};
+    // category can be multiple for OR condition pass like - string seperate with commas
     if (req.query?.category) {
-      filter.category = req.query.category;
+      let categories = req.query?.category.split(',')
+      categories = categories.filter((x) => x)
+      filter.categories = { $in: categories };
     }
     const pageNum = (req.query.limit || 100) * (req.query.page || 0);
     const { products, totalProducts } = await productService.getproducts(
