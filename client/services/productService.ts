@@ -118,9 +118,22 @@ async function deleteProductService(productId: string, token: string) {
   }
 }
 
+async function getCategories() {
+  try {
+    const resp = await axios.get(
+      `http://127.0.0.1:8000/api/v1/product/categories`
+    );
+
+    return { data: resp.data, error: false };
+  } catch (err) {
+    return { data: err, error: true };
+  }
+}
+
 export {
   createProductService,
   getProductsService,
   deleteProductService,
   updateProductService,
+  getCategories
 };
