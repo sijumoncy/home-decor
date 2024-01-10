@@ -1,4 +1,4 @@
-export const categories = [
+const categories = [
     {id:1, name:"furniture"},
     {id:2, name:"lighting"},
     {id:3, name:"smarthome"},
@@ -16,3 +16,7 @@ export const categories = [
     {id:12, name:"office"},
     {id:13, name:"living"},
 ]
+
+module.exports = {
+    categories
+}

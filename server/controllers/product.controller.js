@@ -3,6 +3,7 @@ const productService = require("../services/product.service");
 const path = require("path");
 const fs = require("fs");
 const { deleteFile, renameFile } = require("../utils/fileUtils");
+const {categories} = require('../constant/category')
 
 async function addProduct(req, res) {
   try {
@@ -120,10 +121,22 @@ async function getProducts(req, res) {
   }
 }
 
+async function getCategories(req, res) {
+  try {
+    res.status(httpStatus.OK).json(categories);
+  } catch(err) {
+    console.error("get product categories error : ", err);
+    res
+      .status(httpStatus.INTERNAL_SERVER_ERROR)
+      .json({ message: "error", error: err });
+  }
+}
+
 module.exports = {
   addProduct,
   updateProduct,
   getProduct,
   getProducts,
   deleteProduct,
+  getCategories
 };

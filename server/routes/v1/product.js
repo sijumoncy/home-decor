@@ -38,6 +38,11 @@ const uploadImage = multer({
   fileFilter: fileFilter,
 });
 
+router.get(
+  "/categories",
+  productController.getCategories
+)
+
 // get all products : no auth
 router.get("/", productController.getProducts);
 
