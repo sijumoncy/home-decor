@@ -10,7 +10,9 @@ function CategoryCard({ category }: ICategoryCardProps) {
     <div className="categorycard__container">
       <div className="card">
         <div className="card-head"></div>
-        <div className="card-body">{category.name}</div>
+        <div className="card-body">
+          <span>{category.name}</span>
+        </div>
       </div>
     </div>
   );

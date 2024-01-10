@@ -20,7 +20,7 @@ function CategoryList() {
 
   return (
     <div className="categorylist__container">
-      <h5 className="head">Categories</h5>
+      {/* <h5 className="head">Categories</h5> */}
       <div className="card__layout">
         {categoryData.map((item, index) => (
           <CategoryCard key={index} category={item} />
