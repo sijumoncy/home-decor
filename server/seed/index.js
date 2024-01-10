@@ -1,8 +1,13 @@
 const connectDb = require("../db/connection");
 const mongoose = require("mongoose");
+const ProductModel = require("../models/Product.Model");
+const {productsSeedData} = require("./data");
 
 async function seedData() {
   console.log("dB connected  start seed ");
+  await ProductModel.deleteMany({});
+  await ProductModel.insertMany(productsSeedData);
+  await exit();
 }
 
 connectDb()
@@ -13,7 +18,7 @@ connectDb()
     await seedData();
   });
 
-function exit() {
+async function exit() {
   mongoose
     .disconnect()
     .then(() => console.log("Disconnected"))

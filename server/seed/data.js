@@ -1,4 +1,4 @@
-export const productsSeedData = [
+const productsSeedData = [
   {
     id: 1,
     title: "Rest living set",
@@ -591,3 +591,8 @@ export const productsSeedData = [
     rating: 2.8,
   },
 ];
+
+
+module.exports = {
+  productsSeedData
+}
