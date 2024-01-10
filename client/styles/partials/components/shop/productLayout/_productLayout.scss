@@ -1,5 +1,5 @@
 .productLayout__container {
-  .two-col {
+  .product-sections {
     position: relative;
     width: 100%;
     display: grid;
@@ -9,7 +9,7 @@
         grid-template-columns: 1fr 1fr;
     }
 
-    .two-one {
+    .section-one {
       background-color: #b8ccdd;
       position: relative;
       width: 100%;
@@ -76,7 +76,7 @@
       }
     }
 
-    .two-two {
+    .section-two {
       position: relative;
       width: 100%;
       height: 160vh;
@@ -130,6 +130,10 @@
           }
         }
       }
+    }
+
+    .section-three {
+
     }
   }
 }
