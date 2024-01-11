@@ -6,6 +6,7 @@ import { getProductsService } from "@/services/productService";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import ProductListCard from "./ProductListCard";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 function ProductsLayout() {
   const [trending, setTrending] = useState<IProductResponse[]>([]);
@@ -124,8 +125,14 @@ function ProductsLayout() {
                   <div className="one">
                     <div className="head">
                       <h4>{capitaliseFirstLetter(catgName)}</h4>
-                      <button className="">Explore More</button>
+                      <button className="">
+                        Explore More{" "}
+                        <span>
+                          <MdKeyboardArrowRight/>
+                        </span>
+                      </button>
                     </div>
+
                     <div className="product-list">
                       {Array.from({ length: 6 }, (_, index) => {
                         const indexNum = getRandomNumberBtwNums(
@@ -133,13 +140,14 @@ function ProductsLayout() {
                           productArr.length
                         );
                         return (
-                          <ProductListCard key={index} product={productArr[indexNum]}/>
+                          <ProductListCard
+                            key={index}
+                            product={productArr[indexNum]}
+                          />
                         );
                       })}
                     </div>
                   </div>
-                  {/* <div className="two"></div>
-                  <div className="three"></div> */}
                 </div>
               ))}
             </div>
