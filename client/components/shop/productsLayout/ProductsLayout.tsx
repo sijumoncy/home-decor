@@ -5,6 +5,7 @@ import { IProductResponse } from "@/interface/manageproduct";
 import { getProductsService } from "@/services/productService";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import ProductListCard from "./ProductListCard";
 
 function ProductsLayout() {
   const [trending, setTrending] = useState<IProductResponse[]>([]);
@@ -132,34 +133,7 @@ function ProductsLayout() {
                           productArr.length
                         );
                         return (
-                          <div key={index} className="product-card">
-                            <div className="img">
-                              <Image
-                                src={
-                                  `http://127.0.0.1:8000` +
-                                  `/api/v1/file/${productArr[indexNum]?.img}`
-                                }
-                                alt={productArr[0]?.title}
-                                fill={true}
-                                style={{ objectFit: "contain" }}
-                              />
-                            </div>
-
-                            <div className="content">
-                              <div className="btns">
-                                <button>wish</button>
-                                <button>cart</button>
-                              </div>
-                              <div className="details">
-                                <p className="title">
-                                  {productArr[indexNum].title}
-                                </p>
-                                <p className="price">
-                                  ₹ {productArr[indexNum].price}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
+                          <ProductListCard key={index} product={productArr[indexNum]}/>
                         );
                       })}
                     </div>

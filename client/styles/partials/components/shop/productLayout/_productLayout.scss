@@ -175,69 +175,9 @@
               grid-template-columns: repeat(6, 1fr);
             }
 
-            .product-card {
-              position: relative;
-              width: 100%;
-              max-width: 300px;
-              height: 300px;
-              display: flex;
-              flex-direction: column;
-
-              @include mobileL {
-                height: 400px;
-              }
-              
-              .img {
-                position: relative;
-                width: 100%;
-                flex: 2;
-                border: solid rgb(196, 192, 192);
-                border-width: 1px 1px 0 1px;
-              }
-
-              .content {
-                font-size: small;
-                flex: 1;
-                .btns {
-                  display: grid;
-                  grid-template-columns: repeat(2, 1fr);
-                  justify-content: center;
-                  button {
-                    border: 1px solid rgb(196, 192, 192);
-                    background-color: transparent;
-                    outline: none;
-                    padding: 10px 0;
-                    &:nth-child(1) {
-                      border-right: none;
-                    }
-                  }
-
-                }
-
-                .details {
-                  text-align: center;
-                  padding: 0 5px;
-                  display: flex;
-                  flex-direction: column;
-                  gap: 5px;
-                  justify-content: space-between;
-
-                  .title {
-                    font-weight: 500;
-                  }
-                }
-              }
-
-
-            }
           }
         }
 
-        .two {
-        }
-
-        .three {
-        }
       }
     }
   }
