@@ -6,7 +6,7 @@
     grid-template-columns: 1fr;
 
     @include tabletL {
-        grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
     }
 
     .section-one {
@@ -99,14 +99,14 @@
           background-color: #d7e0e7;
         }
         &:nth-child(4) {
-            background-color: #d7e0e7;
-          }
+          background-color: #d7e0e7;
+        }
 
         .card-wrapper {
           position: relative;
           width: 100%;
           height: 100%;
-          
+
           .img {
             width: 50%;
             height: 50%;
@@ -133,7 +133,112 @@
     }
 
     .section-three {
+      position: relative;
+      margin: 12px 16px;
 
+      @include tabletL {
+        grid-column: 1 / 3;
+      }
+
+      .wrapper {
+        padding-bottom: 10px;
+        .one {
+          .head {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+
+            h4 {
+            }
+
+            button {
+            }
+          }
+
+          .product-list {
+            position: relative;
+            display: grid;
+            gap: 10px 10px;
+            width: 100%;
+            grid-template-columns: repeat(2, 1fr);
+            justify-items: center;
+
+            @include tabletS {
+              grid-template-columns:  repeat(3, 1fr);
+            }
+
+            @include laptopL {
+              grid-template-columns: repeat(4, 1fr);
+            }
+
+            @include desktopL {
+              grid-template-columns: repeat(6, 1fr);
+            }
+
+            .product-card {
+              position: relative;
+              width: 100%;
+              max-width: 300px;
+              height: 300px;
+              display: flex;
+              flex-direction: column;
+
+              @include mobileL {
+                height: 400px;
+              }
+              
+              .img {
+                position: relative;
+                width: 100%;
+                flex: 2;
+                border: solid rgb(196, 192, 192);
+                border-width: 1px 1px 0 1px;
+              }
+
+              .content {
+                font-size: small;
+                flex: 1;
+                .btns {
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  justify-content: center;
+                  button {
+                    border: 1px solid rgb(196, 192, 192);
+                    background-color: transparent;
+                    outline: none;
+                    padding: 10px 0;
+                    &:nth-child(1) {
+                      border-right: none;
+                    }
+                  }
+
+                }
+
+                .details {
+                  text-align: center;
+                  padding: 0 5px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 5px;
+                  justify-content: space-between;
+
+                  .title {
+                    font-weight: 500;
+                  }
+                }
+              }
+
+
+            }
+          }
+        }
+
+        .two {
+        }
+
+        .three {
+        }
+      }
     }
   }
 }

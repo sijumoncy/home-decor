@@ -1,4 +1,6 @@
 "use client";
+import { capitaliseFirstLetter } from "@/components/utils/capitaliseFirstLetter";
+import { getRandomNumberBtwNums } from "@/components/utils/getRandomNum";
 import { IProductResponse } from "@/interface/manageproduct";
 import { getProductsService } from "@/services/productService";
 import Image from "next/image";
@@ -6,7 +8,9 @@ import React, { useEffect, useState } from "react";
 
 function ProductsLayout() {
   const [trending, setTrending] = useState<IProductResponse[]>([]);
-  const [products, setProducts] = useState<{[key:string] : IProductResponse[]}>({});
+  const [products, setProducts] = useState<{
+    [key: string]: IProductResponse[];
+  }>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -25,28 +29,33 @@ function ProductsLayout() {
   };
 
   const getCategoriesProducts = async () => {
-
     const { data, error } = await getProductsService(0, 50, "", {
-      category:["furniture", "lighting", "smarthome", "accessories", "modern"]
+      category: ["furniture", "lighting", "smarthome", "accessories", "modern"],
     });
-    const {products}:{products:IProductResponse[]} = data
-    const funitures = products.filter((product) => product.categories.includes('furniture'))
-    const lighting = products.filter((product) => product.categories.includes('lighting'))
-    const smarthome = products.filter((product) => product.categories.includes('smarthome'))
-    const accessories = products.filter((product) => product.categories.includes('accessories'))
+    const { products }: { products: IProductResponse[] } = data;
+    const funitures = products.filter((product) =>
+      product.categories.includes("furniture")
+    );
+    const lighting = products.filter((product) =>
+      product.categories.includes("lighting")
+    );
+    const smarthome = products.filter((product) =>
+      product.categories.includes("smarthome")
+    );
+    const accessories = products.filter((product) =>
+      product.categories.includes("accessories")
+    );
 
-    if(!error) {
-      setProducts({funitures, lighting, smarthome, accessories})
+    if (!error) {
+      setProducts({ funitures, lighting, smarthome, accessories });
     }
-
-  }
+  };
 
   console.log(products);
-  
 
   useEffect(() => {
     getProduct();
-    getCategoriesProducts()
+    getCategoriesProducts();
   }, []);
 
   return (
@@ -58,7 +67,6 @@ function ProductsLayout() {
       ) : (
         <>
           <div className="product-sections">
-
             {/* section 1 */}
             <div className="section-one">
               <div className="two-one-card">
@@ -108,12 +116,59 @@ function ProductsLayout() {
             </div>
 
             {/* section3 */}
+
             <div className="section-three">
-              <div className="">
+              {Object.entries(products).map(([catgName, productArr]) => (
+                <div key={catgName} className="wrapper">
+                  <div className="one">
+                    <div className="head">
+                      <h4>{capitaliseFirstLetter(catgName)}</h4>
+                      <button className="">Explore More</button>
+                    </div>
+                    <div className="product-list">
+                      {Array.from({ length: 6 }, (_, index) => {
+                        const indexNum = getRandomNumberBtwNums(
+                          0,
+                          productArr.length
+                        );
+                        return (
+                          <div key={index} className="product-card">
+                            <div className="img">
+                              <Image
+                                src={
+                                  `http://127.0.0.1:8000` +
+                                  `/api/v1/file/${productArr[indexNum]?.img}`
+                                }
+                                alt={productArr[0]?.title}
+                                fill={true}
+                                style={{ objectFit: "contain" }}
+                              />
+                            </div>
 
-              </div>
+                            <div className="content">
+                              <div className="btns">
+                                <button>wish</button>
+                                <button>cart</button>
+                              </div>
+                              <div className="details">
+                                <p className="title">
+                                  {productArr[indexNum].title}
+                                </p>
+                                <p className="price">
+                                  ₹ {productArr[indexNum].price}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  {/* <div className="two"></div>
+                  <div className="three"></div> */}
+                </div>
+              ))}
             </div>
-
           </div>
         </>
       )}
