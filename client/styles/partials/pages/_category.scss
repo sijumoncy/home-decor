@@ -1,0 +1,27 @@
+.categorypage__container {
+    min-height: 50vh;
+
+    .product__wrapper {
+        padding: 16px 16px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        justify-items: center;
+
+        @include tabletS {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include tabletL {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @include laptopL {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        @include desktop {
+            grid-template-columns: repeat(6, 1fr);
+        }
+    }
+}
