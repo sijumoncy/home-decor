@@ -7,6 +7,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import ProductListCard from "./ProductListCard";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 function ProductsLayout() {
   const [trending, setTrending] = useState<IProductResponse[]>([]);
@@ -15,6 +16,8 @@ function ProductsLayout() {
   }>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const router = useRouter();
 
   const getProduct = async () => {
     setLoading(true);
@@ -35,7 +38,7 @@ function ProductsLayout() {
       category: ["furniture", "lighting", "smarthome", "accessories", "modern"],
     });
     const { products }: { products: IProductResponse[] } = data;
-    const funitures = products.filter((product) =>
+    const furniture = products.filter((product) =>
       product.categories.includes("furniture")
     );
     const lighting = products.filter((product) =>
@@ -49,11 +52,13 @@ function ProductsLayout() {
     );
 
     if (!error) {
-      setProducts({ funitures, lighting, smarthome, accessories });
+      setProducts({ furniture, lighting, smarthome, accessories });
     }
   };
 
-  console.log(products);
+  const handleRouteCategory = (categoryName: string) => {
+    router.push(`/shop/category/${categoryName}`);
+  };
 
   useEffect(() => {
     getProduct();
@@ -121,14 +126,17 @@ function ProductsLayout() {
 
             <div className="section-three">
               {Object.entries(products).map(([catgName, productArr]) => (
-                <div key={catgName} className="wrapper">
+                <div id={catgName} key={catgName} className="wrapper">
                   <div className="one">
                     <div className="head">
                       <h4>{capitaliseFirstLetter(catgName)}</h4>
-                      <button className="">
+                      <button
+                        className=""
+                        onClick={() => handleRouteCategory(catgName)}
+                      >
                         Explore More{" "}
                         <span>
-                          <MdKeyboardArrowRight/>
+                          <MdKeyboardArrowRight />
                         </span>
                       </button>
                     </div>
