@@ -25,8 +25,8 @@ function ProductListCard({product}:IProductListCard) {
 
       <div className="content">
         <div className="btns">
-          <AddtoWishList/>
-          <AddtoCart/>
+          <AddtoWishList product={product}/>
+          <AddtoCart product={product}/>
         </div>
         <div className="details">
           <p className="title">{product.title}</p>
