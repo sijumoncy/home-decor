@@ -1,6 +1,7 @@
 import { IProductResponse } from "@/interface/manageproduct";
 import { ICartItem } from "@/interface/store";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "@/store/store";
 
 export interface ICartState {
   cartItems: ICartItem[];
@@ -42,6 +43,30 @@ export const cartSlice = createSlice({
     },
   },
 });
+
+// custom selectors
+const cartItems = (state: RootState) => state.cart.cartItems;
+
+export const totalCartItemSelector = createSelector([cartItems], (cartItems) =>
+  cartItems.reduce(
+    (total: number, current: ICartItem) => (total += current.quantity),
+    0
+  )
+);
+
+export const totalPriceSelector = createSelector([cartItems], (cartItems) =>
+  cartItems.reduce(
+    (total: number, current: ICartItem) =>
+      (total += current.quantity * current.product.price),
+    0
+  )
+);
+
+export const productQuantitySelector = createSelector(
+  [cartItems, (cartItems, productId: string) => productId],
+  (cartItems, productId) =>
+    cartItems.find((el) => el.product._id === productId)?.quantity
+);
 
 export const { increment, decrement } = cartSlice.actions;
 export default cartSlice.reducer;
