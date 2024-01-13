@@ -3,6 +3,7 @@ import "../globals.scss";
 import LayoutWrapper from "./LayoutWrapper";
 import { getServerSession } from "next-auth";
 import AuthProvider from "@/context/SessionProvider";
+import StoreProvider from "@/context/storeProvider";
 
 export const metadata: Metadata = {
   title: "Home Decor App",
@@ -19,9 +20,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="">
-        <AuthProvider session={session}>
-          <LayoutWrapper>{children}</LayoutWrapper>
-        </AuthProvider>
+        <StoreProvider>
+          <AuthProvider session={session}>
+            <LayoutWrapper>{children}</LayoutWrapper>
+          </AuthProvider>
+        </StoreProvider>
       </body>
     </html>
   );
