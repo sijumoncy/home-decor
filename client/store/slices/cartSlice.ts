@@ -47,6 +47,11 @@ export const cartSlice = createSlice({
 // custom selectors
 const cartItems = (state: RootState) => state.cart.cartItems;
 
+export const totalUniqueCartItems = createSelector(
+  [cartItems],
+  (cartItems) => cartItems.length
+);
+
 export const totalCartItemSelector = createSelector([cartItems], (cartItems) =>
   cartItems.reduce(
     (total: number, current: ICartItem) => (total += current.quantity),

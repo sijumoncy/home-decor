@@ -9,11 +9,12 @@ import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaRegUser, FaOpencart } from "react-icons/fa";
 import { signOut, useSession } from "next-auth/react";
+import CartMenuIcon from "@/components/cart/CartMenuIcon";
 
 function Navbar() {
   const [sticky, setSticky] = useState(false);
 
-  const handleScroll = (event: Event) => {
+  const handleScroll = (event: Event | any) => {
     const currentScollY = event.currentTarget?.scrollY;
     if (currentScollY > 50) {
       setSticky(true);
@@ -60,7 +61,8 @@ function Navbar() {
               <FaRegUser className="icon" />
             </Link>
           )}
-          <FaOpencart className="icon" />
+
+          <CartMenuIcon />
           <MobNavIcon />
 
           {session && (
