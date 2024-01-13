@@ -1,4 +1,5 @@
 import ProductListCard from "@/components/shop/productsLayout/ProductListCard";
+import { capitaliseFirstLetter } from "@/components/utils/capitaliseFirstLetter";
 import { IProductResponse } from "@/interface/manageproduct";
 import { getProductsService } from "@/services/productService";
 import React from "react";
@@ -24,6 +25,10 @@ async function CategoryPage({ params }: ICategoryPageProps) {
 
   return (
     <section className="categorypage__container">
+      <div className="head">
+        <h3>{capitaliseFirstLetter(params.category)}</h3>
+        <p>{totalProducts} items</p>
+      </div>
       <div className="product__wrapper">
         {products.length === 0 ? (
           <>No Products</>

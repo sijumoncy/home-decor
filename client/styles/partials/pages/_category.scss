@@ -1,6 +1,18 @@
 .categorypage__container {
     min-height: 50vh;
 
+    .head {
+        padding-top: 16px;
+        @include flex-center-column;
+        h3 {
+            color: #212121;
+        }
+        p {
+            color: gray;
+            font-size: small;
+        }
+    }
+
     .product__wrapper {
         padding: 16px 16px;
         display: grid;
