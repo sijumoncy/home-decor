@@ -1,7 +1,8 @@
+import AddtoCart from "@/components/buttons/AddtoCart";
+import AddtoWishList from "@/components/buttons/AddtoWishList";
 import { IProductResponse } from "@/interface/manageproduct";
 import Image from "next/image";
 import React from "react";
-import {FaHeart, FaCartPlus} from 'react-icons/fa6'
 
 interface IProductListCard {
   product : IProductResponse
@@ -24,12 +25,8 @@ function ProductListCard({product}:IProductListCard) {
 
       <div className="content">
         <div className="btns">
-          <button title="add to wishlist">
-            <FaHeart className="icon"/>
-          </button>
-          <button title="add to cart">
-            <FaCartPlus className="icon"/>
-          </button>
+          <AddtoWishList/>
+          <AddtoCart/>
         </div>
         <div className="details">
           <p className="title">{product.title}</p>

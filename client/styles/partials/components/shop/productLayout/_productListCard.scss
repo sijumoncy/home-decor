@@ -34,24 +34,6 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       justify-content: center;
-      button {
-        border: 1px solid $hover-border-color;
-        background-color: transparent;
-        outline: none;
-        padding: 10px 0;
-        &:nth-child(1) {
-          border-right: none;
-        }
-
-        .icon {
-          transition: all 0.5s ease;
-          &:hover {
-            fill: var(--hover-danger);
-            cursor: pointer;
-            transform: scale(125%);
-          }
-        }
-      }
     }
 
     .details {
