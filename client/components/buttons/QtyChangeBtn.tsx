@@ -1,5 +1,4 @@
 "use client";
-import { IProductResponse } from "@/interface/manageproduct";
 import React from "react";
 
 interface IQtyChangeBtnProps {

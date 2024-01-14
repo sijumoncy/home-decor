@@ -41,6 +41,12 @@ export const cartSlice = createSlice({
         }
       }
     },
+
+    removeItem: (state, action: PayloadAction<IProductResponse>) => {
+      state.cartItems = state.cartItems.filter(
+        (el) => el.product._id !== action.payload._id
+      );
+    },
   },
 });
 
@@ -73,5 +79,5 @@ export const productQuantitySelector = createSelector(
     cartItems.find((el) => el.product._id === productId)?.quantity
 );
 
-export const { increment, decrement } = cartSlice.actions;
+export const { increment, decrement, removeItem } = cartSlice.actions;
 export default cartSlice.reducer;

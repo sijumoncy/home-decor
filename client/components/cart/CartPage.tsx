@@ -4,6 +4,7 @@ import useAppContext from "@/context/appContext";
 import {
   decrement,
   increment,
+  removeItem,
   totalPriceSelector,
   totalUniqueCartItems,
 } from "@/store/slices/cartSlice";
@@ -23,14 +24,18 @@ function CartPage({}: ICartPageProps) {
   const totalCartAmount = useAppSelector(totalPriceSelector);
   const cartItems = useAppSelector((state) => state.cart.cartItems);
 
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const handleCount = (type: "inc" | "dec", product: IProductResponse) => {
     if (type === "inc") {
-      dispath(increment(product));
+      dispatch(increment(product));
     } else if (type === "dec") {
-      dispath(decrement(product));
+      dispatch(decrement(product));
     }
+  };
+
+  const handleRemoveCartItem = (product: IProductResponse) => {
+    dispatch(removeItem(product));
   };
 
   return (
@@ -57,6 +62,7 @@ function CartPage({}: ICartPageProps) {
             cartItem={item}
             incFunc={() => handleCount("inc", item.product)}
             decFunc={() => handleCount("dec", item.product)}
+            removeFunc={() => handleRemoveCartItem(item.product)}
           />
         ))}
       </div>

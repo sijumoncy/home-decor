@@ -1,17 +1,22 @@
-import { IProductResponse } from "@/interface/manageproduct";
 import { ICartItem } from "@/interface/store";
 import Image from "next/image";
 import React from "react";
-import { Action, Dispatch } from "redux";
 import QtyChangeBtn from "../buttons/QtyChangeBtn";
+import { RiCloseFill } from "react-icons/ri";
 
 interface ICartItemCardProps {
   cartItem: ICartItem;
   incFunc: () => void;
   decFunc: () => void;
+  removeFunc: () => void;
 }
 
-function CartItemCard({ cartItem, incFunc, decFunc }: ICartItemCardProps) {
+function CartItemCard({
+  cartItem,
+  incFunc,
+  decFunc,
+  removeFunc,
+}: ICartItemCardProps) {
   return (
     <div className="cartcard__wrapper">
       <div className="left">
@@ -46,6 +51,10 @@ function CartItemCard({ cartItem, incFunc, decFunc }: ICartItemCardProps) {
           />
         </div>
       </div>
+
+      <button className="remove-btn" onClick={removeFunc}>
+        <RiCloseFill className="icon" />
+      </button>
     </div>
   );
 }
