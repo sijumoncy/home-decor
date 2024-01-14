@@ -8,6 +8,7 @@ import {
 import { useAppSelector } from "@/store/store";
 import React from "react";
 import { RiCloseFill } from "react-icons/ri";
+import CartItemCard from "./CartItemCard";
 
 interface ICartPageProps {
   openCart?: boolean;
@@ -17,6 +18,7 @@ function CartPage({}: ICartPageProps) {
   const { openCart, setOpenCart } = useAppContext();
   const totalCartItems = useAppSelector(totalUniqueCartItems);
   const totalCartAmount = useAppSelector(totalPriceSelector);
+  const cartItems = useAppSelector((state) => state.cart.cartItems);
 
   return (
     <div className={`cartpage__wrapper ${openCart && "open"}`}>
@@ -34,7 +36,14 @@ function CartPage({}: ICartPageProps) {
         </button>
       </div>
 
-      <div className="cart-section">Cart</div>
+      {/* cart items */}
+      <div className="cart-section">
+        {cartItems.map((item) => (
+          <CartItemCard key={item.product._id} cartItem={item} />
+        ))}
+      </div>
+
+      {/* footer checkout */}
       <div className="total-section">
         <div className="amount">
           <p>Estimated Total</p>

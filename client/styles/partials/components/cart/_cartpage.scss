@@ -49,6 +49,9 @@
 
   .cart-section {
     padding: 10px;
+    @include flex-center-column;
+    width: 100%;
+    gap: 10px;
   }
 
   .total-section {

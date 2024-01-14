@@ -1,0 +1,27 @@
+.cartcard__wrapper {
+  background-color: #fff;
+  border: 1px solid #ece9e9;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .left {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .price {
+    }
+
+    .qty-selector {
+    }
+  }
+}
