@@ -3,7 +3,7 @@
   border: 1px solid #ece9e9;
   width: 100%;
   padding: 12px;
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -12,16 +12,45 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    position: relative;
+
+    .image {
+      position: relative;
+      @include flex-center;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .info {
+      .item-title {
+        font-weight: 700;
+        font-size: 12px;
+        width: 70%;
+        line-height: 14px;
+      }
+
+      .item-price {
+        margin-top: 5px;
+        font-size: 10px;
+      }
+    }
   }
 
   .right {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    .price {
+    align-items: end;
+    padding-inline: 5px;
+
+    .item-total {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .5px;
     }
 
     .qty-selector {
+        margin-top: 5px;
     }
   }
 }

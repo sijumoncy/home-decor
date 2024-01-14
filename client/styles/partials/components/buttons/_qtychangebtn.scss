@@ -1,0 +1,19 @@
+.qtybtn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #808080;
+  max-width: 80px;
+  width: 80px;
+  border-radius: 500px;
+
+  button {
+    outline: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+  }
+
+  .qty-txt {
+  }
+}
