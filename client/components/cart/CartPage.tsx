@@ -56,15 +56,19 @@ function CartPage({}: ICartPageProps) {
 
       {/* cart items */}
       <div className="cart-section">
-        {cartItems.map((item) => (
-          <CartItemCard
-            key={item.product._id}
-            cartItem={item}
-            incFunc={() => handleCount("inc", item.product)}
-            decFunc={() => handleCount("dec", item.product)}
-            removeFunc={() => handleRemoveCartItem(item.product)}
-          />
-        ))}
+        {cartItems.length === 0 ? (
+          <>Your cart is empty. Add Items</>
+        ) : (
+          cartItems.map((item) => (
+            <CartItemCard
+              key={item.product._id}
+              cartItem={item}
+              incFunc={() => handleCount("inc", item.product)}
+              decFunc={() => handleCount("dec", item.product)}
+              removeFunc={() => handleRemoveCartItem(item.product)}
+            />
+          ))
+        )}
       </div>
 
       {/* footer checkout */}
@@ -74,7 +78,9 @@ function CartPage({}: ICartPageProps) {
           <p>₹ {totalCartAmount}</p>
         </div>
         <p className="tax">Taxes and shipping calculated at checkout</p>
-        <button className="checkout-btn">Check out</button>
+        <button className="checkout-btn" disabled={cartItems.length === 0}>
+          Check out
+        </button>
       </div>
     </div>
   );
