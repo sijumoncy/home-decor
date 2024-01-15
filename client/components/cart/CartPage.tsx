@@ -13,6 +13,7 @@ import React from "react";
 import { RiCloseFill } from "react-icons/ri";
 import CartItemCard from "./CartItemCard";
 import { IProductResponse } from "@/interface/manageproduct";
+import { useRouter } from "next/navigation";
 
 interface ICartPageProps {
   openCart?: boolean;
@@ -25,6 +26,7 @@ function CartPage({}: ICartPageProps) {
   const cartItems = useAppSelector((state) => state.cart.cartItems);
 
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleCount = (type: "inc" | "dec", product: IProductResponse) => {
     if (type === "inc") {
@@ -36,6 +38,11 @@ function CartPage({}: ICartPageProps) {
 
   const handleRemoveCartItem = (product: IProductResponse) => {
     dispatch(removeItem(product));
+  };
+
+  const navigateCheckout = () => {
+    setOpenCart(false)
+    router.push(`/shop/checkout`);
   };
 
   return (
@@ -78,7 +85,11 @@ function CartPage({}: ICartPageProps) {
           <p>₹ {totalCartAmount}</p>
         </div>
         <p className="tax">Taxes and shipping calculated at checkout</p>
-        <button className="checkout-btn" disabled={cartItems.length === 0}>
+        <button
+          className="checkout-btn"
+          disabled={cartItems.length === 0}
+          onClick={navigateCheckout}
+        >
           Check out
         </button>
       </div>

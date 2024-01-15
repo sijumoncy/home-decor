@@ -1,4 +1,26 @@
 .checkout__container {
-    padding: 16px;
-    min-height: 50vh;
+  padding: 16px;
+  min-height: 50vh;
+
+  display: grid;
+  grid-template-areas:
+    "header    "
+    "disclosure"
+    "content   ";
+
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
+  width: 100%;
+
+  .header {
+    grid-area: "header";
+  }
+
+  .summary-section {
+    grid-area: "disclosure";
+  }
+
+  .address-section {
+    grid-area: "content";
+  }
 }
