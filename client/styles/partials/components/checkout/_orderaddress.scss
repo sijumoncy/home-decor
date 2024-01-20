@@ -5,6 +5,11 @@
       grid-template-columns: minmax(0, 1fr);
       gap: 8px;
 
+      @include tabletS {
+        gap: 15px;
+      }
+    
+
       width: 100%;
       .input-group {
         width: 100%;
@@ -47,6 +52,13 @@
           .error-txt {
             color: var(--color-danger);
             font-size: 12px;
+          }
+        }
+
+        @include tabletS {
+          gap: 15px;
+          &.names, &.place, &.country {
+            grid-template-columns: repeat(2, 1fr);
           }
         }
       }
