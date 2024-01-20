@@ -5,16 +5,14 @@ import React from "react";
 function CheckOutPage() {
   return (
     <section className="checkout__container">
-      <header className="header">
+      <div className="header">
         <h3>Home Decor</h3>
-      </header>
-
-      <aside className="summary-section">
+      </div>
+      <div className="sidebar">
         <OrderDisclosure />
-      </aside>
-
-      <div className="address-section">
-        <OrderAddress/>
+      </div>
+      <div className="content">
+        <OrderAddress />
       </div>
     </section>
   );
