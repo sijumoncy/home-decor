@@ -18,8 +18,8 @@
           label {
             font-size: 13px;
             position: absolute;
-            top: 9px;
-            left: 10px;
+            top: 10px;
+            left: 12px;
             color: #444141;
             transition: all .2s ease;
             
@@ -38,7 +38,28 @@
             border: 1px solid #808080;
             padding-top: 14px;
             padding-bottom: 8px;
+
+             &.error {
+              border-color: red;
+             }
           }
+
+          .error-txt {
+            color: var(--color-danger);
+            font-size: 12px;
+          }
+        }
+      }
+
+      .submit-btn {
+        border-radius: 5px;
+        background-color: #646363;
+        color: #ddd;
+        transition: background-color .3s ease;
+
+        &:hover {
+          background-color: #555353;
+          cursor: pointer;
         }
       }
     }
