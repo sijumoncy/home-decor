@@ -1,3 +1,4 @@
+import OrderAddress from "@/components/checkout/OrderAddress";
 import OrderDisclosure from "@/components/checkout/OrderDisclosure";
 import React from "react";
 
@@ -12,7 +13,9 @@ function CheckOutPage() {
         <OrderDisclosure />
       </aside>
 
-      <div className="address-section">Address</div>
+      <div className="address-section">
+        <OrderAddress/>
+      </div>
     </section>
   );
 }
