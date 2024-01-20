@@ -1,8 +1,9 @@
-const orderService = require('../services/order.service')
+const orderService = require("../services/order.service");
 
 async function addOrder(req, res) {
   try {
-    const createdOrder = await orderService.addOrder(req.body);
+    const orderBody = {...req.body, userId : req.user._id}
+    const createdOrder = await orderService.addOrder(orderBody);
     res
       .status(201)
       .json({ message: "Order created successfull", data: createdOrder });
