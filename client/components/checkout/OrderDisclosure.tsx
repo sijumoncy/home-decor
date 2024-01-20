@@ -10,7 +10,7 @@ import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 function OrderDisclosure() {
   const [open, setOpen] = useState(false);
   const cartItems = useAppSelector((state) => state.cart.cartItems);
-  const totalPrice = useAppSelector(totalPriceSelector)
+  const totalPrice = useAppSelector(totalPriceSelector);
 
   return (
     <>
@@ -66,6 +66,24 @@ function OrderDisclosure() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          <div className="disclosure__amount">
+            <div className="charge sub-total">
+              <p>Subtotal</p>
+              <p>₹ {totalPrice}</p>
+            </div>
+            <div className="charge shipping">
+              <p>Shipping</p>
+              <p>₹ 0</p>
+            </div>
+            <div className="charge net-amount">
+              <p>Total</p>
+              <p>
+                <span>INR</span>
+                <span>₹ {totalPrice}</span>
+              </p>
             </div>
           </div>
         </div>
