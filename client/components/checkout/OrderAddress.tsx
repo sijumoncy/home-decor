@@ -1,8 +1,8 @@
 "use client";
 import { IcreateOrderData, orderProductDetail } from "@/interface/orderService";
 import { createOrderService } from "@/services/orderService";
-import { totalPriceSelector } from "@/store/slices/cartSlice";
-import { useAppSelector } from "@/store/store";
+import { clearCart, totalPriceSelector } from "@/store/slices/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import React from "react";
@@ -33,12 +33,14 @@ function OrderAddress() {
 
   const { data: session } = useSession();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const {
     register,
     watch,
     handleSubmit,
     setError,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormFields>({
     defaultValues: {
@@ -46,6 +48,12 @@ function OrderAddress() {
     },
     resolver: zodResolver(zodSchema),
   });
+
+  const onSuccessOrder = async () => {    
+    dispatch(clearCart())
+    // navigate to payment section here
+    // router.push()
+  }
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
@@ -69,12 +77,16 @@ function OrderAddress() {
         orderFormData,
         session?.user?.accessToken || ""
       );
+      console.log({response});
+      
       if (response.error) {
         // add toast
         console.log("error create order : ", response.message);
         setError("root", { message: response?.message });
       } else {
         // toast success
+        reset()
+        await onSuccessOrder()
         console.log("SUCCESS create order : ", response);
       }
     } catch (err) {
