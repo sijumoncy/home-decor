@@ -75,5 +75,21 @@
         }
       }
     }
+    .btn {
+      border-radius: 5px;
+      background-color: #646363;
+      color: #ddd;
+      transition: background-color .3s ease;
+
+      &:hover {
+        background-color: #555353;
+        cursor: pointer;
+      }
+    }
+
+    .shop-btn {
+      margin-top: 10px;
+      width: 100%;
+    }
   }
 }

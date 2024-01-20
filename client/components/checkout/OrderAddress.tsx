@@ -9,6 +9,7 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import LoaderLine from "../utils/Loader/LoaderLine";
+import { useRouter } from "next/navigation";
 
 const zodSchema = z.object({
   firstName: z.string().min(2),
@@ -29,7 +30,9 @@ type FormFields = Zod.infer<typeof zodSchema>;
 function OrderAddress() {
   const cartItems = useAppSelector((state) => state.cart.cartItems);
   const totalPrice = useAppSelector(totalPriceSelector);
+
   const { data: session } = useSession();
+  const router = useRouter();
 
   const {
     register,
@@ -212,11 +215,20 @@ function OrderAddress() {
               secondaryColor="#adaaaa"
             />
           ) : (
-            <button disabled={isSubmitting} className="submit-btn">
-              Proceed to Payment
-            </button>
+            cartItems.length > 0 && (
+              <button disabled={isSubmitting} className="btn submit-btn">
+                Proceed to Payment
+              </button>
+            )
           )}
         </form>
+        {cartItems.length === 0 && (
+          <button 
+            className="btn shop-btn"
+            onClick={()=> router.push(`/shop`)}>
+            Continue Shopping
+          </button>
+        )}
       </div>
     </div>
   );
