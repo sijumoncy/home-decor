@@ -14,6 +14,7 @@ import { RiCloseFill } from "react-icons/ri";
 import CartItemCard from "./CartItemCard";
 import { IProductResponse } from "@/interface/manageproduct";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface ICartPageProps {
   openCart?: boolean;
@@ -27,6 +28,9 @@ function CartPage({}: ICartPageProps) {
 
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { data: session } = useSession();
+
+  console.log({ session });
 
   const handleCount = (type: "inc" | "dec", product: IProductResponse) => {
     if (type === "inc") {
@@ -41,9 +45,14 @@ function CartPage({}: ICartPageProps) {
   };
 
   const navigateCheckout = () => {
-    setOpenCart(false)
+    setOpenCart(false);
     router.push(`/shop/checkout`);
   };
+
+  const navigateSignIn = () => {
+    setOpenCart(false);
+    router.push(`/login`);
+  }
 
   return (
     <div className={`cartpage__wrapper ${openCart && "open"}`}>
@@ -85,13 +94,22 @@ function CartPage({}: ICartPageProps) {
           <p>₹ {totalCartAmount}</p>
         </div>
         <p className="tax">Taxes and shipping calculated at checkout</p>
-        <button
-          className="checkout-btn"
-          disabled={cartItems.length === 0}
-          onClick={navigateCheckout}
-        >
-          Check out
-        </button>
+        {session ? (
+          <button
+            className="cart-btn checkout-btn"
+            disabled={cartItems.length === 0}
+            onClick={navigateCheckout}
+          >
+            Check out
+          </button>
+        ) : (
+          <button
+            className="cart-btn signin-btn"
+            onClick={navigateSignIn}
+          >
+            Login to continue
+          </button>
+        )}
       </div>
     </div>
   );

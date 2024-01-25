@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt"
 
-const protectedRoutes = ["/-shop", '/admin'];
+const protectedRoutes = ["/shop/checkout", '/admin'];
 
 export default async function middleware(req:NextRequest) {
   const session = await getToken({ req })

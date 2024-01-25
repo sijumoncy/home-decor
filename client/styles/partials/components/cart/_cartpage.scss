@@ -110,16 +110,19 @@
       font-size: x-small;
     }
 
-    .checkout-btn {
+    .cart-btn {
       text-transform: uppercase;
       margin: 5px 0;
       padding: 10px;
-      background-color: #808080;
-      color: #fff;
       border: none;
       outline: none;
       font-weight: 400;
       border-radius: 200px;
+    }
+
+    .checkout-btn {
+      background-color: #808080;
+      color: #fff;
 
       &:hover {
         &:not(:disabled) {
@@ -127,6 +130,11 @@
           background-color: #555252;
         }
       }
+    }
+
+    .signin-btn {
+      background-color: var(--color-danger);
+      color: #ddd;
     }
   }
 }
