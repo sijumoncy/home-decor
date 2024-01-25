@@ -10,6 +10,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import LoaderLine from "../utils/Loader/LoaderLine";
 import { useRouter } from "next/navigation";
+import { loadStripe } from "@stripe/stripe-js";
+import { initiatePaymentService } from "@/services/paymentService";
 
 const zodSchema = z.object({
   firstName: z.string().min(2),
@@ -49,11 +51,41 @@ function OrderAddress() {
     resolver: zodResolver(zodSchema),
   });
 
-  const onSuccessOrder = async () => {    
-    dispatch(clearCart())
+  const makePayment = async (orderData: any) => {
+    try {
+      const stripe = await loadStripe(
+        process.env.NEXT_PUBLIC_STRIPE_PUB_KEY as unknown as string
+      );
+      // call api
+      const response = await initiatePaymentService(
+        orderData,
+        session?.user?.accessToken || ""
+      );
+      console.log("payment : ", { response });
+
+      if (response.error) {
+        // add toast
+        console.log("error intiate order payment : ", response.message);
+        // toast failure
+      } else {
+        // toast success
+        console.log("SUCCESS itiate order payment : ", response);
+        const stripeSession = response.data;
+        const result = stripe?.redirectToCheckout({
+          sessionId : stripeSession.id
+        })
+      }
+    } catch (err) {
+      console.log("error make payment : ", err);
+    }
+  };
+
+  const onSuccessOrder = async (orderData: any) => {
+    dispatch(clearCart());
     // navigate to payment section here
+    await makePayment(orderData);
     // router.push()
-  }
+  };
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
@@ -77,16 +109,16 @@ function OrderAddress() {
         orderFormData,
         session?.user?.accessToken || ""
       );
-      console.log({response});
-      
+      console.log({ response });
+
       if (response.error) {
         // add toast
         console.log("error create order : ", response.message);
         setError("root", { message: response?.message });
       } else {
         // toast success
-        reset()
-        await onSuccessOrder()
+        reset();
+        await onSuccessOrder(res.data);
         console.log("SUCCESS create order : ", response);
       }
     } catch (err) {
@@ -235,9 +267,7 @@ function OrderAddress() {
           )}
         </form>
         {cartItems.length === 0 && (
-          <button 
-            className="btn shop-btn"
-            onClick={()=> router.push(`/shop`)}>
+          <button className="btn shop-btn" onClick={() => router.push(`/shop`)}>
             Continue Shopping
           </button>
         )}
