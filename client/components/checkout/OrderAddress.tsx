@@ -81,7 +81,7 @@ function OrderAddress() {
   };
 
   const onSuccessOrder = async (orderData: any) => {
-    dispatch(clearCart());
+    // dispatch(clearCart());
     // navigate to payment section here
     await makePayment(orderData);
     // router.push()
@@ -117,9 +117,9 @@ function OrderAddress() {
         setError("root", { message: response?.message });
       } else {
         // toast success
-        reset();
-        await onSuccessOrder(res.data);
+        // reset();
         console.log("SUCCESS create order : ", response);
+        await onSuccessOrder(response.data);
       }
     } catch (err) {
       setError("root", { message: JSON.stringify(err) });

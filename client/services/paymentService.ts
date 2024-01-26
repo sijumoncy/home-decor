@@ -9,7 +9,7 @@ async function initiatePaymentService(data: any, token: string) {
     };
 
     const resp = await axios.post(
-      "http://127.0.0.1:8000/api/v1/initiate-payment",
+      "http://127.0.0.1:8000/api/v1/payment",
       data,
       config
     );

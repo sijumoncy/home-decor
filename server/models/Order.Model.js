@@ -8,14 +8,15 @@ const orderSchema = new mongoose.Schema(
     },
     products: [
       {
-        productId: { type: String },
-        quantity: { type: Number, default: 1 },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "OrderItem",
+        required: true,
       },
     ],
-    amount: {type:Number, required:true},
-    address : {type:Object, required:true},
-    status : {type:String, default : "pending"},
-    paymentStatus : {type:String, default : "pending"}
+    amount: { type: Number, required: true },
+    address: { type: Object, required: true },
+    status: { type: String, default: "pending" },
+    paymentStatus: { type: String, default: "pending" },
   },
   { timestamps: true }
 );
