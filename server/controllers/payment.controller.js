@@ -6,48 +6,55 @@ const stripe = require("stripe")(config.stripe.secret);
 
 async function initiatePayment(req, res) {
   try {
-    
-    
-    const { _id:orderId } = req.body;
+    const { _id: orderId, successUrl, cancelUrl } = req.body;
     // check order in db
     const dbOrderData = await orderService.getOrder(req, orderId);
     // console.log("order conteoler dbOrderData ====: ", dbOrderData);
     if (dbOrderData) {
-        const { amount } = dbOrderData;
-        console.log("amount ====: ", amount);
-
-        // generate products data from order
-
-
-
+      const { amount } = dbOrderData;
+      console.log("amount ====: ", amount);
 
       //   need to create stripe product data / line_items
+      const line_items = dbOrderData.products.map((product) => ({
+        price_data: {
+          currency: "inr",
+          product_data: {
+            name: product.productId.title,
+            images: [
+              `${config.apiServerUrl}` +
+                `${config.apiBaseUrl}/file/${product.productId.img}`,
+            ],
+          },
+          unit_amount: Math.round(product.productId.price * 100),
+        },
+        quantity: product.quantity,
+      }));
 
-        // const stripeSession = await stripe.checkout.sessions.create({
-        //   payment_method_types: ["card"],
-        //   line_items: [],
-        //   mode: "payment",
-        //   success_url: "/shop/checkout",
-        //   cancel_url: "http://localhost:3000/shop/checkout",
-        // });
+      const stripeSession = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: line_items,
+        mode: "payment",
+        success_url: successUrl,
+        cancel_url: cancelUrl,
+      });
 
-        // console.log("sripe out ===> ", stripeSession);
+      console.log("sripe out ===> ", stripeSession);
 
-        // if (stripeSession && stripeSession?.id) {
-        //   // if payment success
-        //   dbOrderData.paymentDetails = stripeSession;
-        //   const updateOrder = await orderService.updateOrder(
-        //     req,
-        //     dbOrderData._id,
-        //     dbOrderData
-        //   );
+      if (stripeSession && stripeSession?.id) {
+        // if payment success
+        dbOrderData.paymentDetails = stripeSession;
+        const updateOrder = await orderService.updateOrder(
+          req,
+          dbOrderData._id,
+          dbOrderData
+        );
 
-        //   // payment success order updated
-        //   return res.status(200).json({
-        //     message: "Payment successfull",
-        //     data: { sessionId: stripeSession.id, order: updateOrder },
-        //   });
-        // }
+        // payment success order updated
+        return res.status(200).json({
+          message: "Payment successfull",
+          data: { sessionId: stripeSession.id, order: updateOrder },
+        });
+      }
 
       //   payment failed
       return res

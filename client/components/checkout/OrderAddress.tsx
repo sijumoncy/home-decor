@@ -57,6 +57,10 @@ function OrderAddress() {
         process.env.NEXT_PUBLIC_STRIPE_PUB_KEY as unknown as string
       );
       // call api
+      orderData.successUrl = `${process.env.NEXT_PUBLIC_CLIENT_BASE_URL}/shop/checkout/success`;
+      orderData.cancelUrl = `${process.env.NEXT_PUBLIC_CLIENT_BASE_URL}/shop/checkout/failure`;
+      console.log("data before init payement : ", { orderData });
+
       const response = await initiatePaymentService(
         orderData,
         session?.user?.accessToken || ""
@@ -70,10 +74,10 @@ function OrderAddress() {
       } else {
         // toast success
         console.log("SUCCESS itiate order payment : ", response);
-        const stripeSession = response.data;
+        const stripeSessionId = response.data.sessionId;
         const result = stripe?.redirectToCheckout({
-          sessionId : stripeSession.id
-        })
+          sessionId: stripeSessionId,
+        });
       }
     } catch (err) {
       console.log("error make payment : ", err);

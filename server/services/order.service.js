@@ -38,7 +38,6 @@ async function getOrder(req, id) {
         })
         .populate("userId", "name")
         .exec();
-      console.log("order popualtion : ", order.products);
     }
     return order;
   } catch (err) {

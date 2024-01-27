@@ -10,6 +10,9 @@ const envVarsSchema = Joi.object()
     API_URL: Joi.string()
       .description("base url of api with version")
       .default("/api/v1"),
+    API_SERVER_URL: Joi.string()
+      .description("base url of server")
+      .default("http://127.0.0.1:8000"),
     MONGO_URI: Joi.string().required().description("Mongo DB url"),
     MONGO_DB_NAME: Joi.string().required().description("Mongo DB name"),
     JWT_SECRET: Joi.string().required().description("JWT secret key"),
@@ -38,6 +41,7 @@ const config = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   apiBaseUrl: envVars.API_URL,
+  apiServerUrl: envVars.API_SERVER_URL,
   mongo: {
     url: envVars.MONGO_URI,
     dbName: envVars.MONGO_DB_NAME,
